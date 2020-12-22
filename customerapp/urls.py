@@ -13,16 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from customerapp import views
 
 urlpatterns = [
-    # 어드민 페이지
-    path('db/', admin.site.urls),
-
-    # Customer
-    path('', include("customerapp.urls")),
-
-    # Admin
-    path('admin/', include("adminapp.urls")),
+    # 최초 페이지
+    path('', views.first, name="first"),
 ]
