@@ -13,5 +13,32 @@ class User(models.Model):
         db_table = 'users'
 
 class Requests(models.Model):
-    # 요청사항 기본키
+    # 요청사항 기본키(PK)
     r_num = models.AutoField(primary_key=True)
+
+    # 이름
+    client_name = models.CharField(max_length=50)
+
+    # 전화번호
+    client_phone = models.CharField(max_length=50)
+
+    # 주소
+    client_address = models.CharField(max_length=100)
+
+    # 날짜
+    request_date = models.DateField()
+
+    # 평수
+    request_size = models.IntegerField()
+
+    # 메모
+    request_memo = models.TextField()
+
+    # 요청 항목들
+    
+
+    # 열람 비밀번호
+    read_password = models.CharField(max_length=50)
+
+    # 읽음 유무
+    read_check = models.IntegerField(default=0)
