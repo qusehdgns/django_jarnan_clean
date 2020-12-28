@@ -6,9 +6,25 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 # Json 형식의 데이터 리턴
 from django.http import JsonResponse
-# Post 통신 시 필요한 암호화를 우회
-from django.views.decorators.csrf import csrf_exempt
 
 # Json 형식 사용
 import json
 
+# 데이터베이스
+from adminapp.models import User, Request, RequestItems, Construction, Comment
+
+def admin_request_list_call(request):
+
+    if request.session.has_key('name') == False:
+        # 로그인 기록이 없을 경우
+        return redirect('login_call')
+    
+    else:
+        if request.session.has_key('id') == False:
+            return redirect('request_list_call')
+    
+    if User.objects.filter(user_id = request.session['id']).exists() == False :
+        # 관리자 인증 실패
+        return redirect('request_list_call')
+    
+    return render(request, 'Admin_Request_List.html')

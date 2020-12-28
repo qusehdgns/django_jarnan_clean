@@ -17,4 +17,7 @@ from django.urls import path
 from adminapp import views
 
 urlpatterns = [
+    # 요청 리스트 페이지
+    path('request_list', views.admin_request_list_call, name="admin_request_list_call"),
+    
 ]

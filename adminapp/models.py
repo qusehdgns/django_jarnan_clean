@@ -1,4 +1,6 @@
 from django.db import models
+# 시간 관련 라이브러리
+from django.utils import timezone
 
 # 사용자 데이터베이스
 class User(models.Model):
@@ -12,6 +14,7 @@ class User(models.Model):
         # 데이터베이스 테이블 명 'users'
         db_table = 'users'
 
+# 게시물 데이터베이스
 class Request(models.Model):
     # 게시물 기본키(PK)
     r_num = models.AutoField(primary_key=True)
@@ -23,7 +26,7 @@ class Request(models.Model):
     client_phone = models.CharField(max_length=50)
 
     # 주소
-    client_address = models.CharField(max_length=100)
+    request_address = models.CharField(max_length=100)
 
     # 날짜
     request_date = models.DateField()
@@ -34,16 +37,23 @@ class Request(models.Model):
     # 메모
     request_memo = models.TextField()
 
+    # 관리자 메모
+    admin_memo = models.TextField(default="")
+
     # 열람 비밀번호
     read_password = models.CharField(max_length=50)
 
     # 읽음 유무
     read_check = models.IntegerField(default=0)
 
+    # 작성 시간
+    upload_date = models.DateTimeField(default=timezone.now)
+
     class Meta:
-        # 데이터베이스 테이블 명 'users'
+        # 데이터베이스 테이블 명 'requests'
         db_table = 'requests'
 
+# 청소 데이터베이스
 class RequestItems(models.Model):
     # 게시물 기본키(FK)
     r_num = models.ForeignKey(Request, on_delete=models.CASCADE)
@@ -78,6 +88,50 @@ class RequestItems(models.Model):
     # 요청 항목(거주 청소)
     item10 = models.BooleanField(default=False)
 
+    # 요청 항목(계단 청소)
+    item11 = models.BooleanField(default=False)
+
+    # 요청 항목(특수 청소)
+    item12 = models.BooleanField(default=False)
+
     class Meta:
-        # 데이터베이스 테이블 명 'users'
+        # 데이터베이스 테이블 명 'request_items'
         db_table = 'request_items'
+
+# 시공 데이터베이스
+class Construction(models.Model):
+    # 게시물 기본키(FK)
+    r_num = models.ForeignKey(Request, on_delete=models.CASCADE)
+
+    # 요청 항목(입주 청소)
+    item1 = models.BooleanField(default=False)
+
+    # 요청 항목(이사 청소)
+    item2 = models.BooleanField(default=False)
+
+    # 요청 항목(인테리어 후 청소)
+    item3 = models.BooleanField(default=False)
+
+    # 요청 항목(사무실 청소)
+    item4 = models.BooleanField(default=False)
+
+    # 요청 항목(식당 청소)
+    item5 = models.BooleanField(default=False)
+
+    class Meta:
+        # 데이터베이스 테이블 명 'constructions'
+        db_table = 'constructions'
+
+# 댓글 데이터베이스
+class Comment(models.Model):
+    # 게시물 기본키(FK)
+    r_num = models.ForeignKey(Request, on_delete=models.CASCADE)
+
+    # 작성자
+    writer = models.CharField(max_length=50)
+
+    # 작성 내용
+    reply_value = models.TextField(null=False, blank=False)
+
+    # 작성 시간
+    reply_date = models.DateTimeField(default=timezone.now)

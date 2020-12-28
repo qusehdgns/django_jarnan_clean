@@ -18,5 +18,14 @@ from customerapp import views
 
 urlpatterns = [
     # 최초 페이지
-    path('', views.first, name="first"),
+    path('', views.main_call, name="main_call"),
+
+    # 로그인 페이지
+    path('login', views.login_call, name="login_call"),
+
+    # 신청 페이지
+    path('request', views.request_call, name="request_call"),
+
+    # 신청 리스트 페이지
+    path('request_list', views.request_list_call, name="request_list_call"),
 ]

@@ -1,0 +1,35 @@
+<!-- static 파일 선언-->
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- title 지정 -->
+        <title>Jarnan Clean</title>
+
+        <!-- Favicon 아이콘 설정 -->
+        <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
+
+        <!-- script 선언 내용 -->
+        {% block script %}
+        {% endblock script %}
+
+        <!-- jquery 선언 -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+        <!-- css 선언 내용 -->
+        {% block css %}
+        {% endblock css %}
+    </head>
+
+    <body>
+        <!-- Body 태그 내부 내용 -->
+        {% block content %}
+        {% endblock content %}
+    </body>
+
+    <!-- javascript 선언 내용 -->
+    {% block js %}
+    {% endblock js %}
+
+</html>

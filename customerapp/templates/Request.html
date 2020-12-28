@@ -1,0 +1,57 @@
+<!-- Base.html 상속 -->
+{% extends 'Base.html' %}
+<!-- static 파일 선언-->
+{% load static %}
+
+<!-- css 선언 -->
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/Request.css' %}">
+{% endblock css %}
+
+<!-- Body 태그 내용 -->
+{% block content %}
+
+<div>
+    <h3>온라인 예약</h3>
+    이름 : <input type="text" id="clientName" placeholder="예약자 성함" value="{{name}}"/>
+    <p />
+    전화번호 : <input type="text" id="clientPhone" placeholder="예약자 전화번호" maxlength="13" value="{{phone}}"/>
+    <br />
+    <b>$ 전화번호를 올바르게 입력하지 않을 시 예약에 지장이 있을 수 있습니다.</b>
+    <p />
+    요청 주소 :
+    <select name="firstAddress" id="firstAddress"></select>
+    <select name="secondAddress" id="secondAddress"></select>
+    <p />
+    요청 날짜 :
+    <input type='date' id='requestDate' />
+    <p />
+    청소 항목
+    <br />
+    {% for temp in clean %}
+    <span><input type="checkbox" name="requestClean" value="{{temp}}"/>{{temp}}</span>
+    {% endfor %}
+    <p/>
+    청소 항목
+    <br />
+    {% for temp in construct %}
+    <span><input type="checkbox" name="requestConstruct" value="{{temp}}"/>{{temp}}</span>
+    {% endfor %}
+    <p/>
+    요청 사항 :
+    <input type="text" id="requestMemo" placeholder="요청 사항 메모" />
+    <p />
+    열람 비밀번호 :
+    <input type="password" id="readPassword" placeholder="열람 시 입력 비밀번호" />
+</div>
+<div>
+    <input type="button" value="확인" onclick="submit_action();"/>
+    <input type="button" value="취소" onclick="move_to_main();"/>
+</div>
+
+{% endblock content %}
+
+<!-- javascript 선언 -->
+{% block js %}
+<script type="text/javascript" src="{% static 'js/Request.js' %}"></script>
+{% endblock js %}
