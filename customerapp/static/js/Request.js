@@ -34,7 +34,7 @@ $('#clientPhone').on('keyup', function (event) {
             }
         }
         $(this).val(addValue.join('-'));
-    } else{
+    } else {
         $(this).val(value);
     }
 });
@@ -82,11 +82,35 @@ $("select[name=firstAddress]").change(function () {
 });
 //////////
 
+// 평수 및 크기
+$('#requestSize').on('keyup', function (event) {
+    var value = $(this).val();
+    value = value.replace(/[^\.0-9]/g, '');
+
+    $(this).val(value);
+
+    var othervalue = value * 3.305785;
+
+    $('#requestSizeM').val(othervalue.toFixed(2));
+});
+
+$('#requestSizeM').on('keyup', function (event) {
+    var value = $(this).val();
+    value = value.replace(/[^\.0-9]/g, '');
+
+    $(this).val(value);
+
+    var othervalue = value * 0.3025;
+
+    $('#requestSize').val(othervalue.toFixed(2));
+});
+//////////
+
 // 요청 날짜 기본값 설정
 var date = new Date();
 var year = date.getFullYear();
 var month = new String(date.getMonth() + 1);
-var day = new String(date.getDate());
+var day = new String(date.getDate() + 1);
 
 if (month.length == 1) {
     month = "0" + month;
@@ -95,36 +119,146 @@ if (day.length == 1) {
     day = "0" + day;
 }
 
-$("#requestDate").val(year + "-" + month + "-" + day);
+var today = year + "-" + month + "-" + day;
+
+
+$("#requestDate").attr("min", today);
+
+$("#requestDate").val(today);
 //////////
 
 // 확인 버튼
 function submit_action() {
     var clientName = $('#clientName').val();
+
+    if (clientName == "" || clientName == undefined) {
+        alert("예약자 성함을 입력해주세요.");
+        $('#clientName').focus();
+        return;
+    }
+
     var clientPhone = $('#clientPhone').val();
 
+    if (clientPhone == "" || clientPhone == undefined) {
+        alert("예약자 전화번호을 입력해주세요.");
+        $('#clientPhone').focus();
+        return;
+    } else if(clientPhone.length < 11){
+        alert("예약자 전화번호을 올바르게 입력해주세요.");
+        $('#clientPhone').focus();
+        return;
+    }
+
     var firstAddress = $('#firstAddress option:selected').val();
+
+    if (firstAddress == "시/도 선택" || firstAddress == undefined) {
+        alert("주소를 정확히 입력해주세요.");
+        $('#firstAddress').focus();
+        return;
+    }
+
     var secondAddress = $('#secondAddress option:selected').val();
 
+    if (secondAddress == "" || secondAddress == undefined) {
+        alert("주소를 정확히 입력해주세요.");
+        $('#secondAddress').focus();
+        return;
+    }
+
     var requestAddress = firstAddress + " " + secondAddress;
-    
+
+    var requestSize = $('#requestSize').val();
+
+    if(requestSize == "" || requestSize == undefined){
+        alert("크기를 입력해주세요.");
+        $('#requestSize').focus();
+        return;
+    }
+
+    var requestSizeM = $('#requestSizeM').val();
+
+    if(requestSize == "NaN" || requestSizeM == "NaN"){
+        alert("크기를 올바르게 입력해주세요.");
+        $('#requestSize').focus();
+        return;
+    }
+
     var requestDate = $('#requestDate').val();
 
-    var requestClean = [];
+    var requestClean = new Array();
 
     $("input:checkbox[name=requestClean]:checked").each(function () {
         requestClean.push($(this).val());
     })
 
-    var requestConstruct = [];
+    if (requestClean.length == 0) {
+        alert("청소 항목을 선택해주세요.");
+        return;
+    }
+
+    var requestConstruct = new Array();
 
     $("input:checkbox[name=requestConstruct]:checked").each(function () {
         requestConstruct.push($(this).val());
     })
 
+    if (requestConstruct.length == 0) {
+        alert("시공 항목을 선택해주세요.");
+        return;
+    }
+
     var requestMemo = $('#requestMemo').val();
 
     var readPassword = $('#readPassword').val();
+
+    if (readPassword.length < 4) {
+        alert("비밀번호를 4자 이상으로 설정해주세요.");
+        $('#readPassword').focus();
+        return;
+    }
+
+    var result = "예약자 : " + clientName
+        + "\n전화번호 : " + clientPhone
+        + "\n주소 : " + requestAddress
+        + "\n크기 : " + requestSize + " 평 / " + requestSizeM + " m^2"
+        + "\n날짜 : " + requestDate
+        + "\n청소 항목 : " + requestClean
+        + "\n시공 항목 : " + requestConstruct;
+
+    if (requestMemo != "" && requestMemo != undefined) {
+        result += "\n요청 사항 : " + requestMemo;
+    }
+
+    if (!confirm(result)) {
+        return;
+    }
+
+    var formData = new FormData();
+    formData.append('clientName', clientName);
+    formData.append('clientPhone', clientPhone);
+    formData.append('requestAddress', requestAddress);
+    formData.append('requestSize', requestSize);
+    formData.append('requestDate', requestDate);
+    formData.append('requestClean', requestClean);
+    formData.append('requestConstruct', requestConstruct);
+    formData.append('requestMemo', requestMemo);
+    formData.append('readPassword', readPassword);
+
+    $.ajax({
+        url: "/client_request",
+        data: formData,  //위에서 선언한 fromdata
+        processData: false,  // 데이터 객체를 문자열로 바꿀지에 대한 값이다. true면 일반문자...
+        contentType: false,  // 해당 타입을 true로 하면 일반 text로 구분되어 진다.
+        type: 'POST',
+        async: false,   // 순차적 진행
+        success : function(result){
+            alert(result);
+            location.href = "/request_list";
+        },
+        error: function (request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+    });
 }
 //////////
 

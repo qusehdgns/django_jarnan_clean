@@ -28,11 +28,11 @@ class Request(models.Model):
     # 주소
     request_address = models.CharField(max_length=100)
 
-    # 날짜
-    request_date = models.DateField()
-
     # 평수
     request_size = models.IntegerField()
+
+    # 날짜
+    request_date = models.DateField()
 
     # 메모
     request_memo = models.TextField()
@@ -54,7 +54,7 @@ class Request(models.Model):
         db_table = 'requests'
 
 # 청소 데이터베이스
-class RequestItems(models.Model):
+class RequestItem(models.Model):
     # 게시물 기본키(FK)
     r_num = models.ForeignKey(Request, on_delete=models.CASCADE)
 
@@ -95,8 +95,8 @@ class RequestItems(models.Model):
     item12 = models.BooleanField(default=False)
 
     class Meta:
-        # 데이터베이스 테이블 명 'request_items'
-        db_table = 'request_items'
+        # 데이터베이스 테이블 명 'request_item'
+        db_table = 'request_item'
 
 # 시공 데이터베이스
 class Construction(models.Model):

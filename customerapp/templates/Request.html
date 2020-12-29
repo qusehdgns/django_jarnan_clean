@@ -13,9 +13,9 @@
 
 <div>
     <h3>온라인 예약</h3>
-    이름 : <input type="text" id="clientName" placeholder="예약자 성함" value="{{name}}"/>
+    이름 : <input type="text" id="clientName" placeholder="예약자 성함" value="{{name}}" autocomplete="off"/>
     <p />
-    전화번호 : <input type="text" id="clientPhone" placeholder="예약자 전화번호" maxlength="13" value="{{phone}}"/>
+    전화번호 : <input type="text" id="clientPhone" placeholder="예약자 전화번호" maxlength="13" value="{{phone}}" autocomplete="off"/>
     <br />
     <b>$ 전화번호를 올바르게 입력하지 않을 시 예약에 지장이 있을 수 있습니다.</b>
     <p />
@@ -23,8 +23,13 @@
     <select name="firstAddress" id="firstAddress"></select>
     <select name="secondAddress" id="secondAddress"></select>
     <p />
+    평수 : 
+    <input type="text" id="requestSize" placeholder="평"/>
+    크기 : 
+    <input type="text" id="requestSizeM" placeholder="m^2"/>
+    <p/>
     요청 날짜 :
-    <input type='date' id='requestDate' />
+    <input type='date' id='requestDate'/>
     <p />
     청소 항목
     <br />
@@ -32,17 +37,17 @@
     <span><input type="checkbox" name="requestClean" value="{{temp}}"/>{{temp}}</span>
     {% endfor %}
     <p/>
-    청소 항목
+    시공 항목
     <br />
     {% for temp in construct %}
     <span><input type="checkbox" name="requestConstruct" value="{{temp}}"/>{{temp}}</span>
     {% endfor %}
     <p/>
     요청 사항 :
-    <input type="text" id="requestMemo" placeholder="요청 사항 메모" />
+    <input type="text" id="requestMemo" placeholder="요청 사항 메모" autocomplete="off"/>
     <p />
     열람 비밀번호 :
-    <input type="password" id="readPassword" placeholder="열람 시 입력 비밀번호" />
+    <input type="password" id="readPassword" placeholder="비밀번호 4자 이상" />
 </div>
 <div>
     <input type="button" value="확인" onclick="submit_action();"/>

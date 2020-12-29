@@ -11,7 +11,7 @@ from django.http import JsonResponse
 import json
 
 # 데이터베이스
-from adminapp.models import User, Request, RequestItems, Construction, Comment
+from adminapp.models import User, Request, RequestItem, Construction, Comment
 
 def admin_request_list_call(request):
 

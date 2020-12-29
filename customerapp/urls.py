@@ -23,8 +23,14 @@ urlpatterns = [
     # 로그인 페이지
     path('login', views.login_call, name="login_call"),
 
+    # 로그아웃
+    path('logout', views.logout),
+
     # 신청 페이지
     path('request', views.request_call, name="request_call"),
+
+    # 신청
+    path('client_request', views.clientRequest),
 
     # 신청 리스트 페이지
     path('request_list', views.request_list_call, name="request_list_call"),
