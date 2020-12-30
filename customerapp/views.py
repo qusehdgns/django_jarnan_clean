@@ -125,7 +125,7 @@ def clientRequest(request):
     Itembool = [False for i in range(12)]
 
     for temp in data['requestClean'].split(','):
-        Itembool[clean.index(temp)] = True;
+        Itembool[clean.index(temp)] = True
 
     RequestItem.objects.create(r_num=client, item1=Itembool[0], item2=Itembool[1],
                                item3=Itembool[2], item4=Itembool[3], item5=Itembool[4],
@@ -136,7 +136,7 @@ def clientRequest(request):
     Cunstructbool = [False for i in range(5)]
 
     for temp in data['requestConstruct'].split(','):
-        Cunstructbool[construct.index(temp)] = True;
+        Cunstructbool[construct.index(temp)] = True
 
     Construction.objects.create(r_num=client, item1=Cunstructbool[0], item2=Cunstructbool[1],
                                 item3=Cunstructbool[2], item4=Cunstructbool[3], item5=Cunstructbool[4])
@@ -150,6 +150,58 @@ def request_list_call(request):
     if request.session.has_key('name') == False or request.session.has_key('phone') == False:
         return redirect('login_call')
 
+    # 세션 저장값 호출
     name = request.session['name']
-    
-    return render(request, 'Request_List.html', { "name" : name })
+    phone = request.session['phone']
+
+    requestList = []
+
+    for temp in Request.objects.filter(client_name=name, client_phone=phone).order_by('-upload_date').values():
+        requestList.append(temp)
+
+    return render(request, 'Request_List.html',
+                  {"name": name, 'requestList': enumerate(requestList, start=1)})
+
+
+# 비밀번호 확인
+@csrf_exempt
+def checkpassword(request):
+    # Post 형식 데이터 저장
+    data = request.POST
+
+    if Request.objects.filter(r_num=data['r_num'], read_password=data['readPassword']).exists() == True:
+        return HttpResponse("success")
+
+    return HttpResponse("fail")
+
+
+# 신청 사항 페이지
+def reading_request_call(request):
+    # Post 형식 통신인지 확인
+    if request.method == "POST":
+
+        clientRequest = Request.objects.get(
+            pk=request.GET['r_num'], read_password=request.POST['readPassword'])
+
+        items = RequestItem.objects.filter(r_num=clientRequest).values()
+
+        cleanItems = []
+
+        for data in items:
+            for index, value in enumerate(clean, start=1):
+                temp = {"clean": value, "value": data['item' + str(index)]}
+                cleanItems.append(temp)
+
+        constructs = Construction.objects.filter(r_num=clientRequest).values()
+
+        constructions = []
+
+        for data in constructs:
+            for index, value in enumerate(construct, start=1):
+                temp = {"construct": value, "value": data['item' + str(index)]}
+                constructions.append(temp)
+
+        return render(request, "Reading_Request.html",
+                      {"request": clientRequest, "items": enumerate(cleanItems), "constructs": enumerate(constructions) })
+
+    return redirect("request_list_call")

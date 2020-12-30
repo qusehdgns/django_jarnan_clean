@@ -1,1 +1,13 @@
 /* css 코드 */
+
+.request_list{
+    cursor: pointer;
+}
+
+.request_num{
+    display: none;
+}
+
+.input_password{
+    display: none;
+}

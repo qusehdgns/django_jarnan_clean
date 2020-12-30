@@ -1,0 +1,72 @@
+<!-- Base.html 상속 -->
+{% extends 'Base.html' %}
+<!-- static 파일 선언-->
+{% load static %}
+
+<!-- css 선언 -->
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/Reading_Request.css' %}">
+{% endblock css %}
+
+<!-- Body 태그 내용 -->
+{% block content %}
+<input type="button" value="돌아가기" onclick="move_to_request_list();"/>
+<input type="hidden" id="r_num" value="{{ request.r_num }}"/>
+<p/>
+이름 : 
+<b>{{ request.client_name }}</b>
+<p/>
+전화번호 : 
+<b>{{ request.client_phone }}</b>
+<p/>
+주소 : 
+<b>{{ request.request_address }}</b>
+<p/>
+크기 : 
+<b><span id="requestSize">{{ request.request_size }}</span> 평 / <span id="requestSizeM"></span> m^2</b>
+<p/>
+요청 날짜 : 
+<b>{{ request.request_date }}</b>
+<p/>
+청소 항목
+<br/>
+{% for index, temp in items %}
+{% if index != 0 %}
+&nbsp;/&nbsp;
+{% endif %}
+{% if temp.value %}
+<span class="select_items"><b>{{ temp.clean }}</b></span>
+{% else %}
+<span><b>{{ temp.clean }}</b></span>
+{% endif %}
+{% endfor %}
+<p/>
+시공 항목
+<br/>
+{% for index, temp in constructs %}
+{% if index != 0 %}
+&nbsp;/&nbsp;
+{% endif %}
+{% if temp.value %}
+<span class="select_constructs"><b>{{ temp.construct }}</b></span>
+{% else %}
+<span><b>{{ temp.construct }}</b></span>
+{% endif %}
+{% endfor %}
+<p/>
+{% if request.request_memo != "" %}
+요청 사항 : 
+<b>{{ request.request_memo }}</b>
+<p/>
+{% endif %}
+<div>
+    <input type="text" id="comment"/>
+    <p/>
+    <input type="button" value="댓글달기" onclick="request_reply()"/>
+</div>
+{% endblock content %}
+
+<!-- javascript 선언 -->
+{% block js %}
+<script type="text/javascript" src="{% static 'js/Reading_Request.js' %}"></script>
+{% endblock js %}

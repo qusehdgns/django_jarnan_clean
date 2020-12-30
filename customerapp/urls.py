@@ -34,4 +34,10 @@ urlpatterns = [
 
     # 신청 리스트 페이지
     path('request_list', views.request_list_call, name="request_list_call"),
+
+    # 비밀번호 확인
+    path('checkpassword', views.checkpassword, name="checkpassword"),
+
+    # 신청 사항 페이지
+    path('reading_request', views.reading_request_call, name="reading_request_call"),
 ]
