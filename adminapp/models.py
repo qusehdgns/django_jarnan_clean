@@ -44,7 +44,7 @@ class Request(models.Model):
     read_password = models.CharField(max_length=50)
 
     # 읽음 유무
-    read_check = models.IntegerField(default=0)
+    read_check = models.IntegerField(default=1)
 
     # 작성 시간
     upload_date = models.DateTimeField(default=timezone.now)

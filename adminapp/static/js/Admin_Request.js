@@ -1,8 +1,29 @@
 // javascript 코드
 
+// 최초 관리자 메모
+var admin_memo_default = $('#adminMemo').val();
+
 // 돌아가기 버튼
-function move_to_request_list(){
-    location.href = "/request_list";
+function move_to_admin_list(){
+    var url = new URL(location.href);
+    var r_num = url.searchParams.get("r_num");
+
+    var admin_memo = $('#adminMemo').val();
+
+    if(admin_memo != admin_memo_default){
+        $.ajax({
+            url : "/admin/updateadminmemo",
+            type : "GET",
+            data : { "adminMemo" : admin_memo, "r_num" : r_num },
+            error: function (request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    }
+
+    var select = url.searchParams.get("select");
+
+    location.href = "/admin/request_list?select=" + select;
 }
 //////////
 
@@ -42,7 +63,7 @@ function comment_delete(object){
     
     if(confirm("해당 댓글을 정말 삭제하시겠습니까?")){
         $.ajax({
-            url : '/deleteclientreply',
+            url : '/admin/deletereply',
             type : "GET",
             data : { "id" : id },
             success : function(result){
@@ -71,7 +92,7 @@ function update_submit(object){
     formData.append('comment', comment);
 
     $.ajax({
-        url : "/updatereply",
+        url : "/admin/updatecomment",
         data : formData,
         processData: false,  // 데이터 객체를 문자열로 바꿀지에 대한 값이다. true면 일반문자...
         contentType: false,  // 해당 타입을 true로 하면 일반 text로 구분되어 진다.
@@ -111,7 +132,7 @@ function request_reply(){
     formData.append('comment', comment);
 
     $.ajax({
-        url : "/clientreply",
+        url : "/admin/adminreply",
         data : formData,
         processData: false,  // 데이터 객체를 문자열로 바꿀지에 대한 값이다. true면 일반문자...
         contentType: false,  // 해당 타입을 true로 하면 일반 text로 구분되어 진다.

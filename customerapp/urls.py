@@ -36,8 +36,17 @@ urlpatterns = [
     path('request_list', views.request_list_call, name="request_list_call"),
 
     # 비밀번호 확인
-    path('checkpassword', views.checkpassword, name="checkpassword"),
+    path('checkpassword', views.checkpassword),
 
     # 신청 사항 페이지
     path('reading_request', views.reading_request_call, name="reading_request_call"),
+
+    # 클라이언트 댓글
+    path('clientreply', views.clientreply),
+
+    # 클라이언트 댓글 삭제
+    path('deleteclientreply', views.deleteclientreply),
+
+    # 클라이언트 댓글 수정
+    path('updatereply', views.updatereply),
 ]

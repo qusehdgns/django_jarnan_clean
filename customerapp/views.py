@@ -201,7 +201,64 @@ def reading_request_call(request):
                 temp = {"construct": value, "value": data['item' + str(index)]}
                 constructions.append(temp)
 
+        comments = Comment.objects.filter(r_num=clientRequest).order_by("reply_date").values()
+
+        replys = []
+
+        for data in comments:
+            temp = { 'id' : data['id'], 'writer' : data['writer'], 'reply_value' : data['reply_value'] }
+            replys.append(temp)
+
         return render(request, "Reading_Request.html",
-                      {"request": clientRequest, "items": enumerate(cleanItems), "constructs": enumerate(constructions) })
+                      {"request": clientRequest, "items": enumerate(cleanItems),
+                      "constructs": enumerate(constructions), 'comments' : replys })
 
     return redirect("request_list_call")
+
+
+# 클라이언트 댓글
+@csrf_exempt
+def clientreply(request):
+    # Post 형식 데이터 수신
+    data = request.POST
+
+    clientRequest = Request.objects.get(pk=data['r_num'])
+
+    if clientRequest.read_check == 0:
+        Request.objects.filter(pk=data['r_num']).update(read_check=2)
+
+    Comment.objects.create(r_num=clientRequest, writer=request.session['name'], reply_value=data['comment'])
+
+    return HttpResponse()
+
+# 클라이언트 댓글 삭제
+def deleteclientreply(request):
+    
+    if request.session.has_key('name'):
+
+        Comment.objects.filter(id=request.GET['id'], writer=request.session['name']).delete()
+
+        return HttpResponse("success")
+    
+    return HttpResponse("fail")
+
+# 클라이언트 댓글 수정
+@csrf_exempt
+def updatereply(request):
+    # Post 형식 데이터 수신
+    data = request.POST
+
+    clientComment = Comment.objects.filter(id=data['id'], writer=request.session['name'])
+
+    value = clientComment.values()
+
+    requestObject = Request.objects.filter(r_num=int(value[0]['r_num_id']))
+        
+    requestValue = requestObject.values()
+
+    if requestValue[0]['read_check'] == 0:
+        requestObject.update(read_check=2)
+
+    clientComment.update(reply_value=data['comment'])
+
+    return HttpResponse()

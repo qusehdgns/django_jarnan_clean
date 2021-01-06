@@ -20,4 +20,18 @@ urlpatterns = [
     # 요청 리스트 페이지
     path('request_list', views.admin_request_list_call, name="admin_request_list_call"),
     
+    # 요청 확인 페이지
+    path('request_check', views.admin_request_call, name="admin_request_call"),
+
+    # 댓글 삭제
+    path('deletereply', views.deletereply),
+
+    # 댓글 수정
+    path('updatecomment', views.updatecomment),
+
+    # 댓글 달기
+    path('adminreply', views.adminreply),
+
+    # 관리자 메모 수정
+    path('updateadminmemo', views.updateadminmemo),
 ]

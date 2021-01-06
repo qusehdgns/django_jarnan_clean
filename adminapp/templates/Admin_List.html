@@ -1,0 +1,54 @@
+<!-- static 파일 선언-->
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- title 지정 -->
+        <title>Jal Clean</title>
+
+        <!-- Favicon 아이콘 설정 -->
+        <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
+
+        <!-- script 선언 내용 -->
+        {% block script %}
+        {% endblock script %}
+
+        <!-- jquery 선언 -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+        <!-- css 선언 내용 -->
+        {% block css %}
+        {% endblock css %}
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/Admin_List.css' %}">
+    </head>
+
+    <body>
+        <!-- 사이드바 -->
+        <div class="sidebar">
+            <a href="/admin/request_list?select=all">전체</a>
+            <p/>
+            <a href="/admin/request_list?select=new">새로운</a>
+            <p/>
+            <a href="/admin/request_list?select=reply">댓글</a>
+            <p/>
+            <a href="/admin/request_list?select=checked">확인</a>
+            <p/>    
+            <a href="/login">Log out</a>
+        </div>
+        
+        <!-- 컨텐츠 -->
+        <div class="content">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
+
+    <!-- javascript 선언 내용 -->
+    {% block js %}
+    {% endblock js %}
+
+    <script type="text/javascript" src="{% static 'js/Admin_List.js' %}"></script>
+
+</html>
