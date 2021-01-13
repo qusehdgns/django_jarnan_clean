@@ -1,5 +1,5 @@
 from django.contrib import admin
-from adminapp.models import User, Request, RequestItem, Construction, Comment
+from adminapp.models import User, Request, RequestItem, Construction, Comment, Review
 
 # 출력할 ResourceAdmin 클래스를 만든다
 class UserAdmin(admin.ModelAdmin):
@@ -20,9 +20,13 @@ class ConstructionAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('r_num', 'writer', 'reply_value', 'reply_date')
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('r_num', 'writer', 'scope', 'review_value', 'review_date')
+
 # 클래스를 어드민 사이트에 등록한다.
 admin.site.register(User, UserAdmin)
 admin.site.register(Request, RequestAdmin)
 admin.site.register(RequestItem, RequestItemAdmin)
 admin.site.register(Construction, ConstructionAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Review, ReviewAdmin)

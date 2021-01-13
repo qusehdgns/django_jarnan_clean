@@ -12,6 +12,27 @@
 {% block content %}
 <div>
     {% if requestList %}
+    <div>
+        <b>청소 항목</b>
+        <br/>
+        {% for temp in clean %}
+        <span><input type="checkbox" name="selectClean" value="{{temp}}"/>{{temp}}</span>
+        {% endfor %}
+        <p/>
+        <b>시공 항목</b>
+        <br/>
+        {% for temp in construct %}
+        <span><input type="checkbox" name="selectConstruct" value="{{temp}}"/>{{temp}}</span>
+        {% endfor %}
+        <p/>
+        <b>날 짜</b>
+        <br/>
+        <input type='date' id='startDate'/>
+        <b>~</b>
+        <input type='date' id='endDate'/>
+        <p/>
+        <input type="button" value="검색" onclick="search_request();" />
+    </div>
     <table>
         <thead>
             <th></th>
@@ -33,6 +54,22 @@
         </tbody>
     </table>
     <p />
+    {% if endpage != 1 %}
+    {% if page > 2 %}
+    <input type="button" value="<<" onclick="page_start();" />
+    {% endif %}
+    {% if page > 1 %}
+    <input type="button" value="<" onclick="page_before();" />
+    {% endif %}
+    <b>{{page}}</b>
+    {% if page < endpage %}
+    <input type="button" value=">" onclick="page_next();" />
+    {% endif %}
+    {% if page < endpage|add:"-1" %}
+    <input type="button" value=">>" onclick="page_end();" />
+    <input type="hidden" id="endPage" value="{{endpage}}" />
+    {% endif %}
+    {% endif %}
     {% else %}
     <h4>예약 기록이 없습니다.</h4>
     {% endif %}

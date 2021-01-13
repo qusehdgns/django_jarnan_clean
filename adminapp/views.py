@@ -11,9 +11,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Json 형식 사용
 import json
+# math 사용
+import math
 
 # 데이터베이스
-from adminapp.models import User, Request, RequestItem, Construction, Comment
+from adminapp.models import User, Request, RequestItem, Construction, Comment, Review
 
 clean = ['입주 청소', '이사 청소', '인테리어 후 청소', '사무실 청소', '식당 청소',
          '준공 청소', '학교 청소', '관공서 청소', '외벽 청소', '거주 청소', '계단 청소', '특수 청소']
@@ -28,11 +30,20 @@ def admin_request_list_call(request):
 
     if request.GET:
 
+        select = request.GET['select']
+
+        if select == "review":
+
+            return render(request, 'Admin_Review.html')
+
+        if "page" in request.GET:
+            page = int(request.GET['page'])
+        else:
+            page = 1
+
         requestList = []
 
         requestObject = Request.objects
-
-        select = request.GET['select']
 
         if select == "all":
             requestData = requestObject.all().order_by('-upload_date').values()
@@ -50,15 +61,26 @@ def admin_request_list_call(request):
                 read_check=0).order_by('-upload_date').values()
 
         else:
-            return redirect("/admin/request_list?select=all")
+            return redirect("/admin/request_list?select=all&page=1")
 
-        for temp in requestData:
+        endpage = math.ceil(len(requestData) / 10)
+
+        if page > endpage or page < 1:
+            return redirect("/admin/request_list?select=all&page=1")
+
+        start_index = (page - 1) * 10
+
+        end_index = page * 10
+
+        for temp in requestData[start_index:end_index]:
             requestList.append(temp)
 
         return render(request, 'Admin_Request_List.html',
-                      {'requestList': enumerate(requestList, start=1)})
+                      {'requestList': enumerate(requestList, start=1),
+                       'page': page, 'endpage': endpage,
+                       "clean": clean, "construct": construct})
 
-    return redirect("/admin/request_list?select=all")
+    return redirect("/admin/request_list?select=all&page=1")
 
 
 # 요청 확인 페이지
@@ -109,6 +131,8 @@ def deletereply(request):
     return HttpResponse("success")
 
 # 댓글 수정
+
+
 @csrf_exempt
 def updatecomment(request):
     # Post 형식 데이터 수신
@@ -121,6 +145,8 @@ def updatecomment(request):
     return HttpResponse()
 
 # 댓글 달기
+
+
 @csrf_exempt
 def adminreply(request):
     # Post 형식 데이터 수신
@@ -128,11 +154,14 @@ def adminreply(request):
 
     adminRequest = Request.objects.get(pk=data['r_num'])
 
-    Comment.objects.create(r_num=adminRequest, writer='잘나가는 청소', reply_value=data['comment'])
+    Comment.objects.create(
+        r_num=adminRequest, writer='잘나가는 청소', reply_value=data['comment'])
 
     return HttpResponse()
 
 # 관리자 메모 수정
+
+
 def updateadminmemo(request):
 
     requestFocus = Request.objects.filter(r_num=request.GET['r_num'])

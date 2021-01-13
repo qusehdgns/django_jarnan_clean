@@ -22,8 +22,13 @@ function move_to_admin_list(){
     }
 
     var select = url.searchParams.get("select");
+    var page = url.searchParams.get("page");
 
-    location.href = "/admin/request_list?select=" + select;
+    if(page == null){
+        page = 1;
+    }
+
+    location.href = "/admin/request_list?select=" + select + "&page=" + page;
 }
 //////////
 

@@ -135,3 +135,28 @@ class Comment(models.Model):
 
     # 작성 시간
     reply_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        # 데이터베이스 테이블 명 'comments'
+        db_table = 'comments'
+
+# 후기 데이터베이스
+class Review(models.Model):
+    # 게시물 기본키(FK)
+    r_num = models.ForeignKey(Request, on_delete=models.CASCADE)
+
+    # 작성자
+    writer = models.CharField(max_length=50)
+
+    # 별점
+    scope = models.IntegerField(default=5)
+
+    # 작성 내용
+    review_value = models.TextField(null=False, blank=False)
+
+    # 작성 시간
+    review_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        # 데이터베이스 테이블 명 'reviews'
+        db_table = 'reviews'
