@@ -47,14 +47,15 @@ def admin_request_list_call(request):
         requestList = []
 
         requestObject = Request.objects
-
-        select = {}
+        
+        filtering = {}
 
         if request.POST:
+
             if "selectClean" in request.POST:
                 selectClean = request.POST['selectClean'].split(',')
 
-                select['selectClean'] = selectClean
+                filtering['selectClean'] = selectClean
 
                 cleanBool = [False for i in range(12)]
 
@@ -109,6 +110,9 @@ def admin_request_list_call(request):
 
         endpage = math.ceil(len(requestData) / 10)
 
+        if endpage == 0:
+            endpage = 1
+
         if page > endpage or page < 1:
             return redirect("/admin/request_list?select=all&page=1")
 
@@ -122,7 +126,7 @@ def admin_request_list_call(request):
         return render(request, 'Admin_Request_List.html',
                       {'requestList': enumerate(requestList, start=1),
                        'page': page, 'endpage': endpage,
-                       "clean": clean, "construct": construct, "select" : select })
+                       "clean": clean, "construct": construct, "filtering" : filtering })
 
     return redirect("/admin/request_list?select=all&page=1")
 
