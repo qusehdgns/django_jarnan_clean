@@ -3,12 +3,20 @@
 var url = new URL(location.href);
 var select = url.searchParams.get("select");
 var page = url.searchParams.get("page");
-if(page == null){
+if (page == null) {
     page = 1;
 }
 
+// endDate
+function check_endDate(){
+    var endDate = $('#endDate');
+    var startDate = $('#startDate').val();
+    endDate.attr("min", startDate);
+}
+//////////
+
 // 검색 버튼
-function search_request(){
+function search_request() {
     var selectClean = new Array();
 
     $("input:checkbox[name=selectClean]:checked").each(function () {
@@ -30,9 +38,30 @@ function search_request(){
         return;
     }
 
-    var formData = new FormData();
-    formData.append('selectClean', selectClean);
-    formData.append('selectConstruct', selectConstruct);
+    var newForm = $('<form></form>');
+
+    newForm.attr("method", "POST");
+    newForm.attr("action", "/admin/request_list?select=" + select + "&page=1");
+
+    if (selectClean.length != 0) {
+        newForm.append($('<input/>', { type: 'hidden', name: 'selectClean', value: selectClean }));
+    }
+
+    if (selectConstruct.length != 0){
+        newForm.append($('<input/>', { type: 'hidden', name: 'selectConstruct', value: selectConstruct }));
+    }
+
+    if (startDate != ""){
+        newForm.append($('<input/>', { type: 'hidden', name: 'startDate', value: startDate }));
+    }
+
+    if (endDate != ""){
+        newForm.append($('<input/>', { type: 'hidden', name: 'endDate', value: endDate }));
+    }
+
+    newForm.appendTo('body');
+    // submit form 
+    newForm.submit();
 
 }
 //////////
@@ -46,25 +75,25 @@ function select_request(object) {
 //////////
 
 // << 버튼
-function page_start(){
+function page_start() {
     location.href = "/admin/request_list?select=" + select + "&page=1";
 }
 //////////
 
 // < 버튼
-function page_before(){
+function page_before() {
     location.href = "/admin/request_list?select=" + select + "&page=" + (Number(page) - 1);
 }
 //////////
 
 // > 버튼
-function page_next(){
+function page_next() {
     location.href = "/admin/request_list?select=" + select + "&page=" + (Number(page) + 1);
 }
 //////////
 
 // >> 버튼
-function page_end(){
+function page_end() {
     var endpage = $('#endPage').val();
     location.href = "/admin/request_list?select=" + select + "&page=" + endpage;
 }

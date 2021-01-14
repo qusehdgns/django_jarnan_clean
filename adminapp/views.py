@@ -13,6 +13,8 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 # math 사용
 import math
+# queryset OR 사용
+from django.db.models import Q
 
 # 데이터베이스
 from adminapp.models import User, Request, RequestItem, Construction, Comment, Review
@@ -22,6 +24,7 @@ clean = ['입주 청소', '이사 청소', '인테리어 후 청소', '사무실
 construct = ['마루코팅', '타일코팅', '나노코팅', '주방상판', '대리석연마']
 
 
+@csrf_exempt
 def admin_request_list_call(request):
 
     if request.session.has_key('name') == False:
@@ -44,6 +47,47 @@ def admin_request_list_call(request):
         requestList = []
 
         requestObject = Request.objects
+
+        select = {}
+
+        if request.POST:
+            if "selectClean" in request.POST:
+                selectClean = request.POST['selectClean'].split(',')
+
+                select['selectClean'] = selectClean
+
+                cleanBool = [False for i in range(12)]
+
+                for temp in selectClean:
+                    cleanBool[clean.index(temp)] = True
+
+                requestItem = RequestItem.objects
+
+                for index, temp in enumerate(cleanBool, start=1):
+                    if temp:
+                        col = "item" + str(index)
+                        requestItem = requestItem.filter(**{col:True})
+
+                q = Q()
+
+                for temp in requestItem.values('r_num_id'):
+                    q.add(Q(r_num=temp['r_num_id']), q.OR)
+
+                requestObject = requestObject.filter(q)
+
+            if "selectConstruct" in request.POST:
+                Cunstructbool = [False for i in range(5)]
+
+                for temp in request.POST['selectConstruct'].split(','):
+                    Cunstructbool[construct.index(temp)] = True
+
+                print(Cunstructbool)
+
+            if "startDate" in request.POST:
+                print(request.POST['startDate'])
+
+            if "endDate" in request.POST:
+                print(request.POST['endDate'])
 
         if select == "all":
             requestData = requestObject.all().order_by('-upload_date').values()
@@ -78,7 +122,7 @@ def admin_request_list_call(request):
         return render(request, 'Admin_Request_List.html',
                       {'requestList': enumerate(requestList, start=1),
                        'page': page, 'endpage': endpage,
-                       "clean": clean, "construct": construct})
+                       "clean": clean, "construct": construct, "select" : select })
 
     return redirect("/admin/request_list?select=all&page=1")
 
