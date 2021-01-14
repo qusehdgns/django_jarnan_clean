@@ -69,26 +69,56 @@ def admin_request_list_call(request):
                         col = "item" + str(index)
                         requestItem = requestItem.filter(**{col:True})
 
-                q = Q()
+                if len(requestItem) != 0:
+                    q = Q()
 
-                for temp in requestItem.values('r_num_id'):
-                    q.add(Q(r_num=temp['r_num_id']), q.OR)
+                    for temp in requestItem.values('r_num_id'):
+                        q.add(Q(r_num=temp['r_num_id']), q.OR)
 
-                requestObject = requestObject.filter(q)
+                    requestObject = requestObject.filter(q)
+                else:
+                    requestObject = requestObject.filter(r_num=-1)
 
             if "selectConstruct" in request.POST:
-                Cunstructbool = [False for i in range(5)]
+                selectConstruct = request.POST['selectConstruct'].split(',')
 
-                for temp in request.POST['selectConstruct'].split(','):
-                    Cunstructbool[construct.index(temp)] = True
+                filtering['selectConstruct'] = selectConstruct
 
-                print(Cunstructbool)
+                cunstructBool = [False for i in range(5)]
+
+                for temp in selectConstruct:
+                    cunstructBool[construct.index(temp)] = True
+
+                requestConstruct = Construction.objects
+
+                for index, temp in enumerate(cunstructBool, start=1):
+                    if temp:
+                        col = "item" + str(index)
+                        requestConstruct = requestConstruct.filter(**{col:True})
+
+                if len(requestConstruct) != 0:
+                    q = Q()
+
+                    for temp in requestConstruct.values('r_num_id'):
+                        q.add(Q(r_num=temp['r_num_id']), q.OR)
+
+                    requestObject = requestObject.filter(q)
+                else:
+                    requestObject = requestObject.filter(r_num=-1)
 
             if "startDate" in request.POST:
-                print(request.POST['startDate'])
+                startDate = request.POST['startDate']
+
+                filtering['startDate'] = startDate
+
+                requestObject = requestObject.filter(request_date__gte=startDate)
 
             if "endDate" in request.POST:
-                print(request.POST['endDate'])
+                endDate = request.POST['endDate']
+
+                filtering['endDate'] = endDate
+
+                requestObject = requestObject.filter(request_date__lte=endDate)
 
         if select == "all":
             requestData = requestObject.all().order_by('-upload_date').values()

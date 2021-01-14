@@ -8,6 +8,10 @@ if (page == null) {
 }
 
 // endDate
+if($('#startDate').val() != ""){
+    check_endDate();
+}
+
 function check_endDate(){
     var endDate = $('#endDate');
     var startDate = $('#startDate').val();
@@ -63,6 +67,12 @@ function search_request() {
     // submit form 
     newForm.submit();
 
+}
+//////////
+
+// 초기화 버튼
+function reset_search(){
+    location.href = location.href;
 }
 //////////
 
