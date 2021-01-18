@@ -11,7 +11,23 @@
 <!-- content div 내용 -->
 {% block content %}
 <div>
-    
+    {% if data %}
+    {% for temp in data %}
+    <div>
+        <img src="/static/img/Star{{temp.scope}}.png"/>
+        {{ temp.writer }}
+        <br />
+        {{ temp.review_value }}
+        {{ temp.review_date}}
+        <input type="button" value="삭제" onclick="delete_review(this)"/>
+        <input type="hidden" value="{{temp.id}}"/>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div>
+        <b>리뷰가 없습니다</b>
+    </div>
+    {% endif %}
 </div>
 {% endblock content %}
 

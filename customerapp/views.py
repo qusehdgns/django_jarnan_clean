@@ -11,9 +11,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Json 형식 사용
 import json
+# 날짜 형식
+from datetime import datetime as dt
 
 # 데이터베이스
-from adminapp.models import User, Request, RequestItem, Construction, Comment
+from adminapp.models import User, Request, RequestItem, Construction, Comment, Review
 
 clean = ['입주 청소', '이사 청소', '인테리어 후 청소', '사무실 청소', '식당 청소',
          '준공 청소', '학교 청소', '관공서 청소', '외벽 청소', '거주 청소', '계단 청소', '특수 청소']
@@ -157,7 +159,12 @@ def request_list_call(request):
     requestList = []
 
     for temp in Request.objects.filter(client_name=name, client_phone=phone).order_by('-upload_date').values():
+        if temp['request_date'] < dt.now().date():
+            if Review.objects.filter(r_num=temp['r_num']).exists() == False:
+                temp['review'] = True
+
         requestList.append(temp)
+
 
     return render(request, 'Request_List.html',
                   {"name": name, 'requestList': enumerate(requestList, start=1)})
@@ -208,10 +215,15 @@ def reading_request_call(request):
         for data in comments:
             temp = { 'id' : data['id'], 'writer' : data['writer'], 'reply_value' : data['reply_value'] }
             replys.append(temp)
+        
+        reviews = Review.objects.get(r_num=clientRequest)
+
+        print(reviews.writer)
 
         return render(request, "Reading_Request.html",
                       {"request": clientRequest, "items": enumerate(cleanItems),
-                      "constructs": enumerate(constructions), 'comments' : replys })
+                      "constructs": enumerate(constructions), 'comments' : replys,
+                      "review" : reviews })
 
     return redirect("request_list_call")
 
@@ -260,5 +272,16 @@ def updatereply(request):
         requestObject.update(read_check=2)
 
     clientComment.update(reply_value=data['comment'])
+
+    return HttpResponse()
+
+# 클라이언트 리뷰
+def review(request):
+    data = request.GET
+
+    clientRequest = Request.objects.get(pk=data['r_num'])
+
+    Review.objects.create(r_num=clientRequest, writer=request.session['name'],
+                        scope=data['scope'],review_value=data['value'])
 
     return HttpResponse()

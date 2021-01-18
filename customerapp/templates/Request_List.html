@@ -21,15 +21,35 @@
         <td>{{temp.request_address}}</td>
         <td>{{temp.upload_date|date:"Y-m-d H:m:s"}}</td>
     </tr>
+    {% if temp.review %}
+    <tr class="input_review">
+        <td colspan="4">
+            <div>
+                <div class="test">
+                    <p class="star">
+                        <a href="#" value="1">★</a>
+                        <a href="#" value="2">★</a>
+                        <a href="#" value="3">★</a>
+                        <a href="#" value="4">★</a>
+                        <a href="#" value="5">★</a>
+                    </p>
+                </div>
+                <input type="text" placeholder="리뷰는 큰 힘이 됩니다."/>
+                <input type="button" value="확인" onclick="create_review(this,'{{temp.r_num}}');"/>
+            </div>
+        </td>
+    </tr>
+    {% else %}
     <tr class="input_password">
         <td colspan="3">
             <form id="{{temp.r_num}}" method="POST" action="/reading_request?r_num={{temp.r_num}}">
                 {% csrf_token %}
-                <input class="password" type="password" name="readPassword"/>
+                <input class="password" type="password" name="readPassword" placeholder="확인 비밀번호"/>
             </form>
         </td>
         <td><input type="button" value="확인" onclick="check_password('{{temp.r_num}}');"/></td>
     </tr>
+    {% endif %}
     {% endfor %}
 </table>
 <p/>
@@ -37,6 +57,7 @@
 <h4>예약 기록이 없습니다.</h4>
 {% endif %}
 <input type="button" value="예약하기" onclick="move_to_request();"/>
+<input type="button" value="로그아웃" onclick="move_to_login();"/>
 {% endblock content %}
 
 <!-- javascript 선언 -->

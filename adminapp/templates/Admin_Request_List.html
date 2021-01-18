@@ -47,19 +47,33 @@
         <input type='date' id='endDate'/>
         {% endif %}
         <p/>
-        <input type="button" value="검색" onclick="search_request();" />
+        <input type="button" value="검색" onclick="search_request('base');" />
         {% if filtering %}
         <input type="button" value="초기화" onclick="reset_search();" />
+        <input type="hidden" id="filter_check" value="true" />
+        {% else %}
+        <input type="hidden" id="filter_check" value="false" />
         {% endif %}
+    </div>
+    <div>
     </div>
     <table>
         <thead>
             <th></th>
             <th>No</th>
             <th>성 함</th>
-            <th>요청 장소</th>
-            <th>요청 날짜</th>
-            <th>신청 시각</th>
+            <th onclick="select_sorting(this)">
+                <input type="hidden" value="where" />
+                <span>요청 장소</span>
+            </th>
+            <th onclick="select_sorting(this)">
+                <input type="hidden" value="when" />
+                <span>요청 날짜</span>
+            </th>
+            <th onclick="select_sorting(this)">
+                <input type="hidden" value="base" />
+                <span>신청 시각</span>
+            </th>
         </thead>
         <tbody>
             {% for i, temp in requestList %}

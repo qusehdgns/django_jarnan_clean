@@ -39,3 +39,8 @@ $('#clientPhone').on('keyup', function (event) {
     }
 });
 //////////
+
+// move to main 버튼
+function move_to_main(){
+    location.href = "/";
+}

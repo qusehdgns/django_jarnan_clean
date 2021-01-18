@@ -34,4 +34,7 @@ urlpatterns = [
 
     # 관리자 메모 수정
     path('updateadminmemo', views.updateadminmemo),
+
+    # 리뷰 삭제
+    path('deletereview', views.deletereview)
 ]

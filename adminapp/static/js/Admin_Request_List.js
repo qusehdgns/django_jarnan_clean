@@ -3,6 +3,7 @@
 var url = new URL(location.href);
 var select = url.searchParams.get("select");
 var page = url.searchParams.get("page");
+var sort = url.searchParams.get("sort");
 if (page == null) {
     page = 1;
 }
@@ -20,7 +21,7 @@ function check_endDate(){
 //////////
 
 // 검색 버튼
-function search_request() {
+function search_request(sort) {
     var selectClean = new Array();
 
     $("input:checkbox[name=selectClean]:checked").each(function () {
@@ -45,7 +46,7 @@ function search_request() {
     var newForm = $('<form></form>');
 
     newForm.attr("method", "POST");
-    newForm.attr("action", "/admin/request_list?select=" + select + "&page=1");
+    newForm.attr("action", "/admin/request_list?select=" + select + "&page=1&sort=" + sort);
 
     if (selectClean.length != 0) {
         newForm.append($('<input/>', { type: 'hidden', name: 'selectClean', value: selectClean }));
@@ -72,15 +73,28 @@ function search_request() {
 
 // 초기화 버튼
 function reset_search(){
-    location.href = location.href;
+    location.href = "/admin/request_list?select=" + select + "&page=1&sort=base";
 }
 //////////
+
+// Sorting
+function select_sorting(object){
+    var select_sort = $(object).find("input:hidden").val();
+
+    if(select_sort != sort){
+        if($('#filter_check').val() == "true"){
+            search_request(select_sort)
+        } else {
+            location.href = "/admin/request_list?select=" + select + "&page=1&sort=" + select_sort;
+        }
+    }
+}
 
 // 게시물 선택
 function select_request(object) {
     var r_num = $(object).find("input:hidden").val();
 
-    location.href = "/admin/request_check?select=" + select + "&page=" + page + "&r_num=" + r_num;
+    location.href = "/admin/request_check?select=" + select + "&page=" + page + "&sort=" + sort + "&r_num=" + r_num;
 }
 //////////
 

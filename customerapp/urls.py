@@ -49,4 +49,7 @@ urlpatterns = [
 
     # 클라이언트 댓글 수정
     path('updatereply', views.updatereply),
+
+    # 클라이언트 리뷰
+    path('review', views.review),
 ]

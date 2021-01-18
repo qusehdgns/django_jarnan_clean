@@ -32,12 +32,32 @@ def admin_request_list_call(request):
         return redirect('login_call')
 
     if request.GET:
-
+        
         select = request.GET['select']
 
         if select == "review":
+            reviews = Review.objects.all().order_by('-review_date').values();
 
-            return render(request, 'Admin_Review.html')
+            reviewData = []
+
+            for temp in reviews:
+                reviewData.append(temp)
+            return render(request, 'Admin_Review.html', { "data" : reviewData })
+
+        if "sort" not in request.GET:
+            return redirect("/admin/request_list?select=all&page=1&sort=base")
+
+        sort = request.GET['sort']
+
+
+        if sort == "base":
+            sorting = '-upload_date'
+        elif sort == "where":
+            sorting = 'request_address'
+        elif sort == "when":
+            sorting = '-request_date'
+        else:
+            return redirect("/admin/request_list?select=all&page=1&sort=base")
 
         if "page" in request.GET:
             page = int(request.GET['page'])
@@ -121,22 +141,22 @@ def admin_request_list_call(request):
                 requestObject = requestObject.filter(request_date__lte=endDate)
 
         if select == "all":
-            requestData = requestObject.all().order_by('-upload_date').values()
+            requestData = requestObject.all().order_by(sorting).order_by('-upload_date').values()
 
         elif select == "new":
             requestData = requestObject.filter(
-                read_check=1).order_by('-upload_date').values()
+                read_check=1).order_by(sorting).order_by('-upload_date').values()
 
         elif select == "reply":
             requestData = requestObject.filter(
-                read_check=2).order_by('upload_date').values()
+                read_check=2).order_by(sorting).order_by('upload_date').values()
 
         elif select == "checked":
             requestData = requestObject.filter(
-                read_check=0).order_by('-upload_date').values()
+                read_check=0).order_by(sorting).order_by('-upload_date').values()
 
         else:
-            return redirect("/admin/request_list?select=all&page=1")
+            return redirect("/admin/request_list?select=all&page=1&sort=base")
 
         endpage = math.ceil(len(requestData) / 10)
 
@@ -144,7 +164,7 @@ def admin_request_list_call(request):
             endpage = 1
 
         if page > endpage or page < 1:
-            return redirect("/admin/request_list?select=all&page=1")
+            return redirect("/admin/request_list?select=all&page=1&sort=base")
 
         start_index = (page - 1) * 10
 
@@ -158,7 +178,7 @@ def admin_request_list_call(request):
                        'page': page, 'endpage': endpage,
                        "clean": clean, "construct": construct, "filtering" : filtering })
 
-    return redirect("/admin/request_list?select=all&page=1")
+    return redirect("/admin/request_list?select=all&page=1&sort=base")
 
 
 # 요청 확인 페이지
@@ -238,12 +258,20 @@ def adminreply(request):
     return HttpResponse()
 
 # 관리자 메모 수정
-
-
 def updateadminmemo(request):
 
     requestFocus = Request.objects.filter(r_num=request.GET['r_num'])
 
     requestFocus.update(admin_memo=request.GET['adminMemo'])
+
+    return HttpResponse()
+
+
+# 리뷰 삭제
+def deletereview(request):
+
+    reviewId = request.GET['id']
+
+    Review.objects.get(pk=reviewId).delete()
 
     return HttpResponse()

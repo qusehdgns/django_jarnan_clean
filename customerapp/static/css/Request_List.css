@@ -11,3 +11,23 @@
 .input_password{
     display: none;
 }
+
+.input_review{
+    display: none;
+}
+
+.test{
+    margin-top: -25px;
+    margin-bottom: -15px;
+}
+
+.star a{
+    font-size: 25px;
+    text-decoration: none;
+    color: rgba(128,128,128,0.4);
+}
+
+.star a.on{
+    font-size: 25px;
+    color: rgb(255, 255, 0);
+}

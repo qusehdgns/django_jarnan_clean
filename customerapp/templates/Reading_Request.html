@@ -59,6 +59,15 @@
 <b>{{ request.request_memo }}</b>
 <p />
 {% endif %}
+{% if review %}
+<div>
+    <img src="/static/img/Star{{review.scope}}.png"/>
+    {{ review.writer }}
+    <br />
+    {{ review.review_value }}
+    {{ review.review_date}}
+</div>
+{% endif %}
 {% if comments %}
 {% for temp in comments %}
 <div>
@@ -70,7 +79,7 @@
     </div>
     {% if temp.writer == request.client_name %}
     <div class='update_relpy'>
-        <input type="text" value="{{ temp.reply_value }}"/>
+        <input type="text" value="{{ temp.reply_value }}" />
     </div>
     <div class="base_reply">
         <input type="button" value="수정" onclick="comment_update(this);" />
@@ -87,7 +96,7 @@
 <p />
 <div>
     <b>{{ request.client_name }}</b>
-    <br/>
+    <br />
     <input type="text" id="comment" />
     <input type="button" value="댓글달기" onclick="request_reply()" />
 </div>
