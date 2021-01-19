@@ -6,49 +6,45 @@
 }
 
 .review-div{
-    display: inline-block;
-    width: 70%;
-    height: 100px;
-    background-color: rgba(255, 251, 0, 0.2);
+    display: flex;
+    width: 90%;
     padding: 10px;
-    border-radius: 10px;
+    min-height: 95px;
+    border: 1px solid #e8ebee;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.03);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.03);
+    background-color: #fff;
+}
+
+.review-div ~ .review-div{
+    margin-top: 16px;
+}
+
+.review-star{
+    display: flex;
+    align-items: center;
 }
 
 .Star{
     width: 80px;
-    position: relative;
-    top: 15px;
 }
 
-.float-left{
-    float: left;
-    margin-right: 10px;
-    font-size: 14pt;
-}
-
-.float-left b{
-    font-size: 14pt;
+.review-contents{
+    width: 100%;
+    font-size: 18px;
+    margin: 0 16px;
 }
 
 .review-value{
-    max-width: 800px;
-    text-overflow: ellipsis;
     word-break: break-all;
-    max-height: 50px;
-    overflow: auto;
 }
 
-.float-right{
-    float: right;
-}
-
-.float-right input{
-    float: right;
-}
-
-.float-right span{
-    position: relative;
-    float: right;
-    font-size: 8pt;
-    top: 30px;
+.review-util{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    word-break: keep-all;
+    white-space: nowrap;
+    align-items: flex-end;
 }

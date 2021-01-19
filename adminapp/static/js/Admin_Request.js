@@ -43,7 +43,7 @@ $('#requestSizeM').text(othervalue.toFixed(2));
 // 댓글 수정 초기화 함수
 function refresh_reply(object){
     $('.update_relpy').hide();
-    $('.base_reply').show();
+    $('.base_reply').css('display', 'flex');
 
     var reply = object.prev().prev().children().text();
     object.prev().find("input:text").val(reply);
@@ -59,7 +59,7 @@ function comment_update(object){
     div.prev().show();
 
     div.hide();
-    div.next().show();
+    div.next().css('display', 'flex');
 }
 //////////
 

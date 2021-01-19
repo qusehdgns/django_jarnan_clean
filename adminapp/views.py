@@ -194,8 +194,12 @@ def admin_request_call(request):
 
     for data in items:
         for index, value in enumerate(clean, start=1):
-            temp = {"clean": value, "value": data['item' + str(index)]}
-            cleanItems.append(temp)
+            if data['item' + str(index)]:
+                temp = { "clean" : value }
+                cleanItems.append(temp)
+    
+    if cleanItems:
+        cleanItems = enumerate(cleanItems)
 
     constructs = Construction.objects.filter(r_num=clientRequest).values()
 
@@ -203,8 +207,12 @@ def admin_request_call(request):
 
     for data in constructs:
         for index, value in enumerate(construct, start=1):
-            temp = {"construct": value, "value": data['item' + str(index)]}
-            constructions.append(temp)
+            if data['item' + str(index)]:
+                temp = { "construct": value }
+                constructions.append(temp)
+    
+    if constructions:
+        constructions = enumerate(constructions)
 
     comments = Comment.objects.filter(
         r_num=clientRequest).order_by("reply_date").values()
@@ -217,8 +225,8 @@ def admin_request_call(request):
         replys.append(temp)
 
     return render(request, "Admin_Request.html",
-                  {"request": clientRequest, "items": enumerate(cleanItems),
-                   "constructs": enumerate(constructions), 'comments': replys})
+                  {"request": clientRequest, "items": cleanItems,
+                   "constructs": constructions, 'comments': replys})
 
 
 # 댓글 삭제

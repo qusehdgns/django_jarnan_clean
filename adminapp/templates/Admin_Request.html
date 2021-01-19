@@ -10,95 +10,115 @@
 
 <!-- Body 태그 내용 -->
 {% block content %}
-<div>
-    <input type="button" value="돌아가기" onclick="move_to_admin_list();" />
+<div class="Show">
+    <div class="ml-3">
+        <input type="button" class="btn btn-secondary btn-sm" value="돌아가기" onclick="move_to_admin_list();" />
+    </div>
     <input type="hidden" id="r_num" value="{{ request.r_num }}" />
-    <p />
-    이름 :
-    <b>{{ request.client_name }}</b>
-    <p />
-    전화번호 :
-    <b>{{ request.client_phone }}</b>
-    <p />
-    주소 :
-    <b>{{ request.request_address }}</b>
-    <p />
-    크기 :
-    <b><span id="requestSize">{{ request.request_size }}</span> 평 / <span id="requestSizeM"></span> m^2</b>
-    <p />
-    요청 날짜 :
-    <b>{{ request.request_date }}</b>
-    <p />
-    청소 항목
-    <br />
-    {% for index, temp in items %}
-    {% if index != 0 %}
-    &nbsp;/&nbsp;
+    <div class="form-group row mt-4">
+        <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">이름 :</span>
+        <span class="col-sm-11">{{ request.client_name }}</span>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">전화번호 :</span>
+        <span class="col-sm-11">{{ request.client_phone }}</span>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">주소 :</span>
+        <span class="col-sm-11">{{ request.request_address }}</span>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">크기 :</span>
+        <span class="col-sm-11"><span id="requestSize">{{ request.request_size }}</span> 평 / <span id="requestSizeM"></span> m<sup>2</sup></span>
+    </div>
+    <div class="form-group row">
+        <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">요청 날짜 :</span>
+        <span class="col-sm-11">{{ request.request_date }}</span>
+    </div>
+    {% if items%}
+    <div class="form-group row">
+        <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">청소 항목 :</span>
+        <span class="col-sm-11">
+            {% for index, temp in items %}
+            {% if index != 0 %}
+            ,&nbsp;
+            {% endif %}
+            {{ temp.clean }}
+            {% endfor %}
+        </span>
+    </div>
     {% endif %}
-    {% if temp.value %}
-    <span class="select_items"><b>{{ temp.clean }}</b></span>
-    {% else %}
-    <span><b>{{ temp.clean }}</b></span>
+    {% if constructs %}
+    <div class="form-group row">
+        <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">시공 항목 :</span>
+        <span class="col-sm-11">
+            {% for index, temp in constructs %}
+            {% if index != 0 %}
+            ,&nbsp;
+            {% endif %}
+            {{ temp.construct }}
+            {% endfor %}
+        </span>
+    </div>
     {% endif %}
-    {% endfor %}
-    <p />
-    시공 항목
-    <br />
-    {% for index, temp in constructs %}
-    {% if index != 0 %}
-    &nbsp;/&nbsp;
-    {% endif %}
-    {% if temp.value %}
-    <span class="select_constructs"><b>{{ temp.construct }}</b></span>
-    {% else %}
-    <span><b>{{ temp.construct }}</b></span>
-    {% endif %}
-    {% endfor %}
-    <p />
     {% if request.request_memo != "" %}
-    요청 사항 :
-    <b>{{ request.request_memo }}</b>
-    <p />
+    <div class="form-group row">
+        <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">요청 사항 :</span>
+        <span class="col-sm-11">{{ request.request_memo }}</span>
+    </div>
     {% endif %}
-    관리자 메모 :
-    <input type="text" value="{{ request.admin_memo }}" id="adminMemo"/>
-    <p/>
-    {% if comments %}
-    {% for temp in comments %}
-    <div>
-        <input type="hidden" value="{{ temp.id }}" />
-        <b>{{ temp.writer }}</b>
-        <br />
-        <div class="base_reply">
-            <span>{{ temp.reply_value }}</span>
+    <div class="form-group">
+        <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">관리자 메모</span>
+        <textarea class="form-control ml-3 admin-memo" id="adminMemo">{{ request.admin_memo }}</textarea>
+    </div>
+    <div class="ml-3 mt-3 pt-3 mr-5 reply-shape">
+        {% if comments %}
+        {% for temp in comments %}
+        <div class="reply-div">
+            <input type="hidden" value="{{ temp.id }}" />
+            <div class="reply-contents">
+                <b>{{ temp.writer }}</b>
+                <div class="base_reply">
+                    <span>{{ temp.reply_value }}</span>
+                </div>
+                {% if temp.writer != request.client_name %}
+                <div class='update_relpy'>
+                    <input type="text" value="{{ temp.reply_value }}" />
+                </div>
+                {% endif %}
+            </div>
+            {% if temp.writer != request.client_name %}
+            <div class="base_reply">
+                <input type="button" class="btn btn-outline-success btn-sm" value="수정" onclick="comment_update(this);" />
+                <input type="button" class="btn btn-outline-danger btn-sm mt-1" value="삭제" onclick="comment_delete(this);" />
+            </div>
+            <div class='update_relpy'>
+                <input type="button" class="btn btn-outline-primary btn-sm" value="확인" onclick="update_submit(this);" />
+                <input type="button" class="btn btn-outline-warning btn-sm mt-1" value="취소" onclick="update_cancel();" />
+            </div>
+            {% else %}
+            <div class="request_reply">
+                <input type="button" class="btn btn-outline-danger btn-sm" value="삭제" onclick="comment_delete(this);" />
+            </div>
+            {% endif %}
         </div>
-        {% if temp.writer != request.client_name %}
-        <div class='update_relpy'>
-            <input type="text" value="{{ temp.reply_value }}" />
-        </div>
-        <div class="base_reply">
-            <input type="button" value="수정" onclick="comment_update(this);" />
-            <input type="button" value="삭제" onclick="comment_delete(this);" />
-        </div>
-        <div class='update_relpy'>
-            <input type="button" value="확인" onclick="update_submit(this);" />
-            <input type="button" value="취소" onclick="update_cancel();" />
-        </div>
-        {% else %}
-        <div>
-            <input type="button" value="삭제" onclick="comment_delete(this);" />
-        </div>
+        {% endfor%}
         {% endif %}
     </div>
-    {% endfor%}
-    {% endif %}
-    <p />
-    <div>
-        <b>잘나가는 청소</b>
-        <br/>
-        <input type="text" id="comment" />
-        <input type="button" value="댓글달기" onclick="request_reply()" />
+    <div class="ml-3 pt-2 mr-5 input-reply">
+        <div class="form-group">
+            <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">잘나가는 청소</span>
+            <div class="input-group is-invalid mt-1">
+                <div class="reply-input pr-2">
+                    <input class="form-control ml-3" type="text" id="comment" />
+                </div>
+                <div class="input-group-append reply-button-div pr-3">
+                    <input class="btn btn-primary reply-button" type="button" value="댓글달기" onclick="request_reply()" />
+                </div>
+            </div>
+        </div>
     </div>
+    
 </div>
 {% endblock content %}
 

@@ -1,1 +1,39 @@
 /* css 코드 */
+
+.filtering-options{
+    margin-bottom: 25px;
+}
+
+.input-date{
+    display: inline-block !important;
+    width: 300px !important;
+}
+
+.page-number{
+    position: absolute;
+    width: 100%;
+    bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-number > *{
+    margin: 0 8px;
+}
+
+.request_list{
+    cursor: pointer;
+}
+
+.not-click{
+    cursor: default;
+}
+
+.do-click{
+    cursor: pointer;
+}
+
+.do-click:hover{
+    background-color: rgba(214, 214, 214, 0.3);
+}

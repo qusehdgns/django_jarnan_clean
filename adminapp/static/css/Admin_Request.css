@@ -1,13 +1,83 @@
 /* css 코드 */
 
-.select_items{
-    background-color: rgba(214, 80, 80, 0.795);
+.Show{
+    max-height: 97%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.select_constructs{
-    background-color: rgba(202, 139, 4, 0.753);
+.admin-memo{
+    resize: none;
+    width: 96% !important;
+    height: 100px !important;
+    margin-right: 5rem !important;
+}
+
+.reply-shape{
+    border-top: 1px solid #e0e0e0;
+}
+
+.reply-div{
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    min-height: 90px;
+    border: 1px solid #e8ebee;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.03);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.03);
+    background-color: #fff;
+}
+
+.reply-div ~ .reply-div{
+    margin-top: 16px;
+}
+
+.reply-contents{
+    width: 100%;
+    font-size: 16px;
+    margin: 0 16px;
+}
+
+.reply-value{
+    word-break: break-all;
 }
 
 .update_relpy{
+    display: flex;
+    flex-direction: column;
     display: none;
+}
+
+.base_reply{
+    display: flex;
+    flex-direction: column;
+}
+
+.request_reply{
+    display: flex;
+    align-items: center;
+}
+
+.input-reply{
+    padding: 10px;
+    height: 90px;
+    border: 1px solid #e8ebee;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.03);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.03);
+    background-color: #fff;
+    margin-top: 16px;
+}
+
+.reply-input{
+    width: 92% !important;
+}
+
+.reply-button-div{
+    width: 8%;
+}
+
+.reply-button{
+    width: 100%;
 }

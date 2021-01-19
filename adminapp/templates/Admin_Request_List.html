@@ -12,84 +12,101 @@
 {% block content %}
 <div>
     {% if requestList %}
-    <div>
-        <b>청소 항목</b>
-        <br/>
-        {% for temp in clean %}
-        {% if temp in filtering.selectClean %}
-        <span><input type="checkbox" name="selectClean" value="{{temp}}" checked />{{temp}}</span>
-        {% else %}
-        <span><input type="checkbox" name="selectClean" value="{{temp}}"/>{{temp}}</span>
-        {% endif %}
-        {% endfor %}
-        <p/>
-        <b>시공 항목</b>
-        <br/>
-        {% for temp in construct %}
-        {% if temp in filtering.selectConstruct %}
-        <span><input type="checkbox" name="selectConstruct" value="{{temp}}" checked />{{temp}}</span>
-        {% else %}
-        <span><input type="checkbox" name="selectConstruct" value="{{temp}}"/>{{temp}}</span>
-        {% endif %}
-        {% endfor %}
-        <p/>
-        <b>날 짜</b>
-        <br/>
-        {% if filtering.startDate %}
-        <input type='date' id='startDate' onchange="check_endDate()" value="{{filtering.startDate}}"/>
-        {% else %}
-        <input type='date' id='startDate' onchange="check_endDate()"/>
-        {% endif %}
-        <b>~</b>
-        {% if filtering.endDate %}
-        <input type='date' id='endDate' value="{{filtering.endDate}}"/>
-        {% else %}
-        <input type='date' id='endDate'/>
-        {% endif %}
-        <p/>
-        <input type="button" value="검색" onclick="search_request('base');" />
-        {% if filtering %}
-        <input type="button" value="초기화" onclick="reset_search();" />
-        <input type="hidden" id="filter_check" value="true" />
-        {% else %}
-        <input type="hidden" id="filter_check" value="false" />
-        {% endif %}
+    <div class="filtering-options">
+        <div class="form-group row">
+            <label class="col-sm-1 col-form-label pt-0 font-weight-bold text-center">청소 항목</label>
+            <div class="col-sm-11">
+                {% for temp in clean %}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="selectClean" value="{{temp}}" 
+                    {% if temp in filtering.selectClean %}
+                    checked
+                    {% endif %}
+                    />
+                    <label class="form-check-label">{{temp}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-1 col-form-label pt-0 font-weight-bold text-center">시공 항목</label>
+            <div class="col-sm-11">
+                {% for temp in construct %}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="selectConstruct" value="{{temp}}" 
+                    {% if temp in filtering.selectConstruct %}
+                    checked
+                    {% endif %}
+                    />
+                    <label class="form-check-label">{{temp}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-1 col-form-label font-weight-bold text-center">날 짜</label>
+            <div class="col-sm-11">
+                <input type='date' class="form-control input-date" id='startDate' onchange="check_endDate()"
+                {% if filtering.startDate %}
+                value="{{filtering.startDate}}"
+                {% endif %}
+                />
+                <b>~</b>
+                <input type='date' class="form-control input-date" id='endDate'
+                {% if filtering.endDate %}
+                value="{{filtering.endDate}}"
+                {% endif %}
+                />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <input type="button" class="btn btn-primary" value="검색" onclick="search_request('base');" />
+                {% if filtering %}
+                <input type="button" class="btn btn-light" value="초기화" onclick="reset_search();" />
+                <input type="hidden" id="filter_check" value="true" />
+                {% else %}
+                <input type="hidden" id="filter_check" value="false" />
+                {% endif %}
+            </div>
+        </div>
     </div>
     <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="not-click">No</th>
+                    <th class="not-click">성 함</th>
+                    <th class="do-click" onclick="select_sorting(this)">
+                        <input type="hidden" value="where" />
+                        <span>요청 장소</span>
+                    </th>
+                    <th class="do-click" onclick="select_sorting(this)">
+                        <input type="hidden" value="when" />
+                        <span>요청 날짜</span>
+                    </th>
+                    <th class="do-click" onclick="select_sorting(this)">
+                        <input type="hidden" value="base" />
+                        <span>신청 시각</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i, temp in requestList %}
+                <tr onclick="select_request(this);" class="request_list">
+                    <td class="request_num"><input type="hidden" value="{{temp.r_num}}" /></td>
+                    <td>{{i}}</td>
+                    <td>{{temp.client_name}}</td>
+                    <td>{{temp.request_address}}</td>
+                    <td>{{temp.request_date}}</td>
+                    <td>{{temp.upload_date|date:"Y-m-d H:m:s"}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <table>
-        <thead>
-            <th></th>
-            <th>No</th>
-            <th>성 함</th>
-            <th onclick="select_sorting(this)">
-                <input type="hidden" value="where" />
-                <span>요청 장소</span>
-            </th>
-            <th onclick="select_sorting(this)">
-                <input type="hidden" value="when" />
-                <span>요청 날짜</span>
-            </th>
-            <th onclick="select_sorting(this)">
-                <input type="hidden" value="base" />
-                <span>신청 시각</span>
-            </th>
-        </thead>
-        <tbody>
-            {% for i, temp in requestList %}
-            <tr onclick="select_request(this);" class="request_list">
-                <td class="request_num"><input type="hidden" value="{{temp.r_num}}" /></td>
-                <td>{{i}}</td>
-                <td>{{temp.client_name}}</td>
-                <td>{{temp.request_address}}</td>
-                <td>{{temp.request_date}}</td>
-                <td>{{temp.upload_date|date:"Y-m-d H:m:s"}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <p />
-    <div>
+    <div class="page-number">
         {% if endpage != 1 %}
         {% if page > 2 %}
         <input type="button" class="btn btn-info btn-sm" value="<<" onclick="page_start();" />

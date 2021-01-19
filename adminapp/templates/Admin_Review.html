@@ -14,19 +14,18 @@
     {% if data %}
     {% for temp in data %}
     <div class="review-div">
-        <div class="float-left">
+        <div class="review-star">
             <img class="Star" src="/static/img/Star{{temp.scope}}.png"/>
         </div>
-        <div class="float-left">
+        <div class="review-contents">
             <b>{{ temp.writer }}</b>
             <div class="review-value">
                 {{ temp.review_value }}
             </div>
         </div>
-        <div class="float-right">   
+        <div class="review-util">   
             <input type="button" class="btn btn-danger" value="삭제" onclick="delete_review(this)"/>
-            <br/>
-            <span>{{ temp.review_date}}</span>
+            <span>{{ temp.review_date }}</span>
             <input type="hidden" value="{{temp.id}}"/>
         </div>
     </div>

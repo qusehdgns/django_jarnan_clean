@@ -21,48 +21,41 @@
         {% block css %}
         {% endblock css %}
 
-        <!-- 합쳐지고 최소화된 최신 CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-        <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        
         <link rel="stylesheet" type="text/css" href="{% static 'css/Admin_List.css' %}">
     </head>
 
     <body>
         <!-- 사이드바 -->
         <div class="sidebar">
+            <div class="Admin_Logo">
+                <img src="{% static 'img/Jar_Logo_2.png' %}" onclick="move_to_main();">
+            </div>
             <div class="buttons">
-                <p/>
-                <span class="selectUrl" onclick="change_list('all');">
+                <span id="all" class="selectUrl" onclick="change_list('all');">
                     <img src="{% static 'img/All.png' %}">
                     <span>전체 요청</span>
                 </span>
-                <p/>
-                <span class="selectUrl" onclick="change_list('new');">
+                <span id="new" class="selectUrl" onclick="change_list('new');">
                     <img src="{% static 'img/New.png' %}">
                     <span>새로운 요청</span>
                 </span>
-                <p/>
-                <span class="selectUrl" onclick="change_list('reply');">
+                <span id="reply" class="selectUrl" onclick="change_list('reply');">
                     <img src="{% static 'img/Reply.png' %}">
                     <span>댓글 알림</span>
                 </span>
-                <p/>
-                <span class="selectUrl" onclick="change_list('checked');">
+                <span id="checked" class="selectUrl" onclick="change_list('checked');">
                     <img src="{% static 'img/Checked.png' %}">
                     <span>확인한 요청</span>
                 </span>
-                <p/>
-                <span class="selectUrl" onclick="show_review();">
+                <span id="review" class="selectUrl" onclick="show_review();">
                     <img src="{% static 'img/Review.png' %}">
                     <span>리뷰</span>
                 </span>
             </div>
-            <div class="Admin_Logo">
-                <input type="button" class="btn btn-primary" value="Log out" onclick="logout();"/>
-                <img src="{% static 'img/Jar_Logo_2.png' %}" onclick="move_to_main();">
+            <div class="logout-button">
+                <button type="button" onclick="logout();">로그아웃</button>
             </div>
         </div>
         
@@ -73,12 +66,13 @@
                 {% endblock content %}
             </div>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+        <!-- javascript 선언 내용 -->
+        {% block js %}
+        {% endblock js %}
+
+        <script type="text/javascript" src="{% static 'js/Admin_List.js' %}"></script>
+
     </body>
-
-    <!-- javascript 선언 내용 -->
-    {% block js %}
-    {% endblock js %}
-
-    <script type="text/javascript" src="{% static 'js/Admin_List.js' %}"></script>
-
 </html>
