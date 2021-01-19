@@ -3,7 +3,7 @@
 // 삭제 버튼
 function delete_review(object) {
     if (confirm("정말 해당 리뷰를 삭제하시겠습니까?")) {
-        var id = $(object).next().val();
+        var id = $(object).parent().find("input:hidden").val();
         
         $.ajax({
             url: "/admin/deletereview",

@@ -100,25 +100,25 @@ function select_request(object) {
 
 // << 버튼
 function page_start() {
-    location.href = "/admin/request_list?select=" + select + "&page=1";
+    location.href = "/admin/request_list?select=" + select + "&page=1&sort=" + sort;
 }
 //////////
 
 // < 버튼
 function page_before() {
-    location.href = "/admin/request_list?select=" + select + "&page=" + (Number(page) - 1);
+    location.href = "/admin/request_list?select=" + select + "&page=" + (Number(page) - 1) + "&sort=" + sort;
 }
 //////////
 
 // > 버튼
 function page_next() {
-    location.href = "/admin/request_list?select=" + select + "&page=" + (Number(page) + 1);
+    location.href = "/admin/request_list?select=" + select + "&page=" + (Number(page) + 1) + "&sort=" + sort;
 }
 //////////
 
 // >> 버튼
 function page_end() {
     var endpage = $('#endPage').val();
-    location.href = "/admin/request_list?select=" + select + "&page=" + endpage;
+    location.href = "/admin/request_list?select=" + select + "&page=" + endpage + "&sort=" + sort;
 }
 //////////

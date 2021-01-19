@@ -2,3 +2,23 @@
 
 var url = new URL(location.href);
 var temp = url.searchParams.get("select");
+
+// Button
+function change_list(value){
+    location.href="/admin/request_list?select=" + value + "&page=1&sort=base"
+}
+
+// Review
+function show_review(){
+    location.href="/admin/request_list?select=review";
+}
+
+// Log out
+function logout(){
+    location.href="/login";
+}
+
+// Logo
+function move_to_main(){
+    location.href="/";
+}

@@ -21,29 +21,57 @@
         {% block css %}
         {% endblock css %}
 
+        <!-- 합쳐지고 최소화된 최신 CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+        <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
         <link rel="stylesheet" type="text/css" href="{% static 'css/Admin_List.css' %}">
     </head>
 
     <body>
         <!-- 사이드바 -->
         <div class="sidebar">
-            <a href="/admin/request_list?select=all&page=1&sort=base">전체</a>
-            <p/>
-            <a href="/admin/request_list?select=new&page=1&sort=base">새로운</a>
-            <p/>
-            <a href="/admin/request_list?select=reply&page=1&sort=base">댓글</a>
-            <p/>
-            <a href="/admin/request_list?select=checked&page=1&sort=base">확인</a>
-            <p/>
-            <a href="/admin/request_list?select=review">Review</a>
-            <p/>
-            <a href="/login">Log out</a>
+            <div class="buttons">
+                <p/>
+                <span class="selectUrl" onclick="change_list('all');">
+                    <img src="{% static 'img/All.png' %}">
+                    <span>전체 요청</span>
+                </span>
+                <p/>
+                <span class="selectUrl" onclick="change_list('new');">
+                    <img src="{% static 'img/New.png' %}">
+                    <span>새로운 요청</span>
+                </span>
+                <p/>
+                <span class="selectUrl" onclick="change_list('reply');">
+                    <img src="{% static 'img/Reply.png' %}">
+                    <span>댓글 알림</span>
+                </span>
+                <p/>
+                <span class="selectUrl" onclick="change_list('checked');">
+                    <img src="{% static 'img/Checked.png' %}">
+                    <span>확인한 요청</span>
+                </span>
+                <p/>
+                <span class="selectUrl" onclick="show_review();">
+                    <img src="{% static 'img/Review.png' %}">
+                    <span>리뷰</span>
+                </span>
+            </div>
+            <div class="Admin_Logo">
+                <input type="button" class="btn btn-primary" value="Log out" onclick="logout();"/>
+                <img src="{% static 'img/Jar_Logo_2.png' %}" onclick="move_to_main();">
+            </div>
         </div>
         
         <!-- 컨텐츠 -->
         <div class="content">
-            {% block content %}
-            {% endblock content %}
+            <div class="base">
+                {% block content %}
+                {% endblock content %}
+            </div>
         </div>
     </body>
 

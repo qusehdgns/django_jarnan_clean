@@ -141,19 +141,19 @@ def admin_request_list_call(request):
                 requestObject = requestObject.filter(request_date__lte=endDate)
 
         if select == "all":
-            requestData = requestObject.all().order_by(sorting).order_by('-upload_date').values()
+            requestData = requestObject.all().order_by(sorting, '-upload_date').values()
 
         elif select == "new":
             requestData = requestObject.filter(
-                read_check=1).order_by(sorting).order_by('-upload_date').values()
+                read_check=1).order_by(sorting, '-upload_date').values()
 
         elif select == "reply":
             requestData = requestObject.filter(
-                read_check=2).order_by(sorting).order_by('upload_date').values()
+                read_check=2).order_by(sorting, '-upload_date').values()
 
         elif select == "checked":
             requestData = requestObject.filter(
-                read_check=0).order_by(sorting).order_by('-upload_date').values()
+                read_check=0).order_by(sorting, '-upload_date').values()
 
         else:
             return redirect("/admin/request_list?select=all&page=1&sort=base")

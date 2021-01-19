@@ -89,22 +89,24 @@
         </tbody>
     </table>
     <p />
-    {% if endpage != 1 %}
-    {% if page > 2 %}
-    <input type="button" value="<<" onclick="page_start();" />
-    {% endif %}
-    {% if page > 1 %}
-    <input type="button" value="<" onclick="page_before();" />
-    {% endif %}
-    <b>{{page}}</b>
-    {% if page < endpage %}
-    <input type="button" value=">" onclick="page_next();" />
-    {% endif %}
-    {% if page < endpage|add:"-1" %}
-    <input type="button" value=">>" onclick="page_end();" />
-    <input type="hidden" id="endPage" value="{{endpage}}" />
-    {% endif %}
-    {% endif %}
+    <div>
+        {% if endpage != 1 %}
+        {% if page > 2 %}
+        <input type="button" class="btn btn-info btn-sm" value="<<" onclick="page_start();" />
+        {% endif %}
+        {% if page > 1 %}
+        <input type="button" class="btn btn-info btn-sm" value="<" onclick="page_before();" />
+        {% endif %}
+        <b class="text-info text-center">{{page}}</b>
+        {% if page < endpage %}
+        <input type="button" class="btn btn-info btn-sm" value=">" onclick="page_next();" />
+        {% endif %}
+        {% if page < endpage|add:"-1" %}
+        <input type="button" class="btn btn-info btn-sm" value=">>" onclick="page_end();" />
+        <input type="hidden" id="endPage" value="{{endpage}}" />
+        {% endif %}
+        {% endif %}
+    </div>
     {% else %}
     <h4>예약 기록이 없습니다.</h4>
     {% endif %}

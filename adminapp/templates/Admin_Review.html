@@ -10,17 +10,25 @@
 
 <!-- content div 내용 -->
 {% block content %}
-<div>
+<div class="Show">
     {% if data %}
     {% for temp in data %}
-    <div>
-        <img src="/static/img/Star{{temp.scope}}.png"/>
-        {{ temp.writer }}
-        <br />
-        {{ temp.review_value }}
-        {{ temp.review_date}}
-        <input type="button" value="삭제" onclick="delete_review(this)"/>
-        <input type="hidden" value="{{temp.id}}"/>
+    <div class="review-div">
+        <div class="float-left">
+            <img class="Star" src="/static/img/Star{{temp.scope}}.png"/>
+        </div>
+        <div class="float-left">
+            <b>{{ temp.writer }}</b>
+            <div class="review-value">
+                {{ temp.review_value }}
+            </div>
+        </div>
+        <div class="float-right">   
+            <input type="button" class="btn btn-danger" value="삭제" onclick="delete_review(this)"/>
+            <br/>
+            <span>{{ temp.review_date}}</span>
+            <input type="hidden" value="{{temp.id}}"/>
+        </div>
     </div>
     {% endfor %}
     {% else %}

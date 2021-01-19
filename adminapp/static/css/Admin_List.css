@@ -11,11 +11,69 @@ html, body{
     width: 300px;
     height: 100%;
     float: left;
-    background-color: aqua;
+}
+
+.buttons{
+    width: 100%;
+    padding-left: 10px;
+    margin-top: 40%;
+}
+
+.selectUrl{
+    display: inline-block;
+    width: 280px;
+    padding-top: 5px;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(52,152,219);
+    vertical-align: middle;
+}
+
+.selectUrl:hover{
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    background-color: rgba(97, 97, 97, 0.3);
+}
+
+.selectUrl img{
+    position: relative;
+    bottom: 2px;
+    width: 25px;
+}
+
+.Admin_Logo{
+    width: 300px;
+    position: fixed;
+    bottom: 0;
+    left: 10px;
+}
+
+.Admin_Logo input{
+    margin-right: 10px;
+    float: right;
+    margin-bottom: 5px;
+}
+
+.Admin_Logo img{
+    width: 100%;
 }
 
 .content{
     height: 100%;
     right: 0;
-    left: 300px;
+    margin-left: 300px;
+}
+
+.base{
+    position: absolute;
+    margin-left: 25px;
+    margin-top: 25px;
+    height: 94%;
+    width: 82%;
+    background-color: rgba(214, 214, 214, 0.4);
+    padding-left: 25px;
+    padding-top: 25px;
+    border-radius: 30px;
 }
