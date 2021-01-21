@@ -26,7 +26,22 @@ construct = ['마루코팅', '타일코팅', '나노코팅', '주방상판', '�
 
 def main_call(request):
 
-    return render(request, 'Main.html')
+    reviewData = Review.objects.filter(scope=5).order_by('-review_date').values()[:5]
+
+    reviews = []
+
+    for data in reviewData:
+        temp = ""
+        for i in range(1,len(data['writer'])):
+            temp += "*"
+        
+        temp = data['writer'][0] + temp
+        
+        dictval = { "writer" : temp, "review_value" : data['review_value'], "review_date" : data['review_date'], "scope" : data['scope'] }
+        
+        reviews.append(dictval)
+
+    return render(request, 'Main.html', { "clean" : clean, "construct" : construct, "reviews" : reviews })
 
 # 로그인 페이지 호출
 

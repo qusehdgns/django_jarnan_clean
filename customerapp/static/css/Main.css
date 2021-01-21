@@ -1,1 +1,154 @@
 /* css 코드 */
+
+.main-base-shape{
+    white-space: nowrap;
+}
+
+.main-first-shape{
+    position: relative;
+}
+
+.main-first-img{
+    width: 100%;
+    /* 투명도 */
+    opacity: 0.4;
+}
+
+.main-first-btn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    width: 110px;
+    height: 32px;
+    font-size: 15px;
+    border: 0 solid;
+    background-color:rgb(118, 196, 208);
+    color: #fff;
+    font-weight: 600;
+}
+
+.main-first-unit{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.phone-call-img{
+    display: block;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.phone-call-num{
+    color: white;
+    font-size: 25px;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.item-title{
+    font-size: 20px;
+    font-weight: 600;
+    color:rgb(118, 196, 208);
+}
+
+.sample-img-div img{
+    width: 100%;
+}
+
+.star{
+    width: 50px;
+}
+
+.review-value{
+    white-space: normal;
+    word-break: break-all;
+}
+
+.review-date{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 13px;
+}
+
+.swipe-review-shape{
+    width: 100%;
+    height: 300px;
+}
+
+.review-swipe-div{
+    border: 1px solid #e8ebee;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.03);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.03);
+    background-color: #fff;
+}
+
+@media (min-width: 430px){
+    .phone-call-num{
+        font-size: 30px;
+    }
+    .phone-call-img{
+        height: 30px;
+    }
+    .star{
+        width: 60px;
+    }
+    .swipe-review-shape{
+        height: 280px;
+    }
+}
+
+@media (min-width: 576px) {
+    .phone-call-num{
+        font-size: 40px;
+    }
+    .phone-call-img{
+        height: 40px;
+    }
+    .main-first-btn{
+        width: 150px;
+        height: 40px;
+        font-size: 16px;
+    }
+    .star{
+        width: 70px;
+    }
+    .swipe-review-shape{
+        height: 250px;
+    }
+}
+
+@media (min-width: 768px) {
+    .phone-call-num{
+        font-size: 50px;
+    }
+    .phone-call-img{
+        height: 50px;
+    }
+    .main-first-btn{
+        width: 180px;
+        height: 50px;
+        font-size: 18px;
+    }
+    .star{
+        width: 80px;
+    }
+    .swipe-review-shape{
+        height: 220px;
+    }
+}
+
+@media (min-width: 992px) {
+    .swipe-review-shape{
+        height: 200px;
+    }
+}

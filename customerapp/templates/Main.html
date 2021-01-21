@@ -5,18 +5,115 @@
 
 <!-- css 선언 -->
 {% block css %}
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/Main.css' %}">
 {% endblock css %}
 
 <!-- Body 태그 내용 -->
 {% block content %}
-<h1>Main</h1>
-<input type="button" value="예약하기" onclick="move_to_request();"/>
-<input type="button" value="Log In" onclick="move_to_login();"/>
-<input type="button" value="Log Out" onclick="logout();"/>
+<div class="container-fluid main-base-shape pb-3">
+    <div class="form-group row mt-1">
+        <div class="col-12 pl-0 pr-0 main-first-shape">
+            <img class="main-first-img" src="{% static 'img/Main_First.png' %}">
+            <button type="button" class="main-first-btn" onclick="move_to_request();">견적 신청</button>
+            <div class="main-first-unit">
+                <img class="phone-call-img" src="{% static 'img/call_img.png' %}">
+                <b class="phone-call-num">000-0000-0000</b>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5 row">
+        <div class="col-12">
+            <div class="form-group row">
+                <label class="col-12 col-sm-3 text-center item-title">청소 항목</label>
+                <div class="col-12 col-sm-9 text-left">
+                    <div class="row">
+                        {% for temp in clean %}
+                        <div class="col-6 col-sm-4 col-md-3 px-1 text-center text-sm-left">
+                            {{temp}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-2 row">
+        <div class="col-12">
+            <div class="form-group row">
+                <label class="col-12 col-sm-3 text-center item-title">시공 항목</label>
+                <div class="col-12 col-sm-9 text-left">
+                    <div class="row">
+                        {% for temp in construct %}
+                        <div class="col-6 col-sm-4 col-md-3 px-1 text-center text-sm-left">
+                            {{temp}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5 mb-5 row sample-img-div">
+        <div class="col-12 col-sm-6 col-md-4 mb-3 mb-sm-2 px-1">
+            <img src="{% static 'img/Main_Sample_img.png' %}"/>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 mb-3 mb-sm-2 px-1">
+            <img src="{% static 'img/Main_Sample_img.png' %}"/>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 mb-3 mb-sm-2 px-1">
+            <img src="{% static 'img/Main_Sample_img.png' %}"/>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 mb-3 mb-sm-2 px-1">
+            <img src="{% static 'img/Main_Sample_img.png' %}"/>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 mb-3 mb-sm-2 px-1">
+            <img src="{% static 'img/Main_Sample_img.png' %}"/>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 px-1">
+            <img src="{% static 'img/Main_Sample_img.png' %}"/>
+        </div>
+    </div>
+    {% if reviews %}
+    <div class="mt-5 mb-5 row">
+        <label class="col-12 col-sm-2 text-center pb-2 item-title">실시간 후기</label>
+        <div class="swiper-container swipe-review-shape">
+            <div class="swiper-wrapper">
+                {% for temp in reviews %}
+                <div class="swiper-slide">
+                    <div class="container-fluid review-swipe-div py-3">
+                        <div class="row">
+                            <div class="col-12 col-sm-2 text-center text-sm-right">
+                                <img class="star" src="/static/img/Star{{temp.scope}}.png">
+                            </div>
+                            <div class="col-12 mx-2 mx-sm-0 col-sm-8">
+                                <div class="row">
+                                    <div class="col-12 text-left">
+                                        <b>{{temp.writer}}</b>
+                                    </div>
+                                    <div class="col-12 text-left review-value">
+                                        {{temp.review_value}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mx-2 mx-sm-0 col-sm-2 text-sm-right review-date">
+                                <span class="text-muted">{{temp.review_date|date:"Y-m-d H:m:s"}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
 {% endblock content %}
 
 <!-- javascript 선언 -->
 {% block js %}
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 <script type="text/javascript" src="{% static 'js/Main.js' %}"></script>
 {% endblock js %}

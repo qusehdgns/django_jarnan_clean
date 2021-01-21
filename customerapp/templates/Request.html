@@ -10,62 +10,64 @@
 
 <!-- Body 태그 내용 -->
 {% block content %}
-
 <div class="request-base-shape">
-    <h3>온라인 예약</h3>
-    <div class="ml-0">
-        <div class="text-left pl-4 pr-4 request-input-feild">
-            <div class="form-group row mt-4 mb-4">
-                <label for="clientName" class="label-div col-sm-2 col-form-label request-label font-weight-bold">이름 :</label>
-                <div class="col-sm-8">
+    <h3 class="font-weight-bold mt-1">온라인 예약</h3>
+    <div class="container">
+        <div class="form-group text-left pl-4pr-md-4 ml-md-5 mr-md-5 ml-sm-3 mr-sm-3">
+            <div class="form-group row mt-4">
+                <label for="clientName" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">이름 :</label>
+                <div class="col-12 col-md-9 col-lg-8">
                     <input type="text" class="form-control mr-2 text-left" id="clientName" placeholder="예약자 성함" value="{{name}}" autocomplete="off"/>
                 </div>
             </div>
-            <div class="form-group row mt-4 mb-4">
-                <label for="clientPhone" class="label-div col-sm-2 col-form-label request-label font-weight-bold">전화번호 : </label>
-                <div class="col-sm-8">
+            <div class="form-group row mt-4">
+                <label for="clientPhone" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">전화번호 : </label>
+                <div class="col-12 col-md-9 col-lg-8">
                     <input type="text" class="form-control mr-2 text-left" id="clientPhone" placeholder="예약자 전화번호" maxlength="13" value="{{phone}}" autocomplete="off" aria-describedby="phonenumberHelp"/>
                     <small id="phonenumberHelp" class="form-text text-muted">
                         전화번호를 올바르게 입력하지 않을 시 예약에 지장이 있을 수 있습니다.
                     </small>
                 </div>
             </div>
-            <div class="form-group row mt-4 mb-4">
-                <label for="firstAddress" class="label-div col-sm-2 col-form-label request-label font-weight-bold">요청 주소 :</label>
-                <div class="col-sm-4">
+            <div class="form-group row mt-4">
+                <label for="firstAddress" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">요청 주소 :</label>
+                <div class="col-12 col-md-4 mb-1 mb-md-0">
                     <select class="form-control" name="firstAddress" id="firstAddress"></select>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-12 col-md-1 empty-div"></div>
+                <div class="col-12 col-md-4">
                     <select class="form-control" name="secondAddress" id="secondAddress"></select>
                 </div>
             </div>
-            <div class="size-div form-group row mt-4 mb-4">
-                <div class="col-sm-5">
+            <div class="form-group row mt-4">
+                <label for="requestSize" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">요청 규모 :</label>
+                <div class="col-12 col-md-4 mb-1 mb-md-0">
                     <div class="input-group">
                         <input type="text" class="form-control text-right" id="requestSize" placeholder="평 수"/>
                         <div class="input-group-append">
-                            <div class="input-group-text">평</div>
+                            <div class="input-group-text size-unit">평</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-12 col-md-1 empty-div"></div>
+                <div class="col-12 col-md-4">
                     <div class="input-group">
                         <input type="text" class="form-control text-right" id="requestSizeM" placeholder="제곱미터"/>
                         <div class="input-group-append">
-                            <div class="input-group-text">m<sup>2</sup></div>
+                            <div class="input-group-text size-unit">m<sup>2</sup></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group row mt-4 mb-4">
-                <label for="requestDate" class="label-div col-sm-2 col-form-label request-label font-weight-bold">요청 날짜 :</label>
-                <div class="col-sm-8">
+            <div class="form-group row mt-4">
+                <label for="requestDate" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">요청 날짜 :</label>
+                <div class="col-12 col-md-9 col-lg-8">
                     <input type='date' class="form-control text-right" id='requestDate'/>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="label-div col-sm-2 col-form-label request-label font-weight-bold">청소 항목&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <div class="col-sm-10 checkbox-div-shape">
+            <div class="form-group row mt-4">
+                <label class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">청소 항목 :</label>
+                <div class="col-12 col-md-9 col-lg-8 pt-md-2 pl-4">
                     <div class="form-row">
                         {% for temp in clean %}
                         <div class="form-check checkbox-div">
@@ -76,9 +78,9 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="label-div col-sm-2 col-form-label request-label font-weight-bold">시공 항목&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <div class="col-sm-10 checkbox-div-shape">
+            <div class="form-group row mt-4">
+                <label class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">시공 항목 :</label>
+                <div class="col-12 col-md-9 col-lg-8 pt-md-2 pl-4">
                     <div class="form-row">
                         {% for temp in construct %}
                         <div class="form-check checkbox-div">
@@ -90,26 +92,39 @@
                 </div>
             </div>
             <div class="form-group row mt-4 mb-4">
-                <label for="requestMemo" class="label-div col-sm-2 col-form-label request-label font-weight-bold">요청 사항 :</label>
-                <div class="col-sm-8">
+                <label for="requestMemo" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">요청 사항 :</label>
+                <div class="col-12 col-md-9 col-lg-8">
                     <textarea class="memo-size form-control mt-2 mr-2 text-left" id="requestMemo" placeholder="요청 사항 메모" autocomplete="off"></textarea>
                 </div>
             </div>
             <div class="form-group row mt-4 mb-4">
-                <label for="readPassword" class="long-label-div col-sm-2 col-form-label request-label font-weight-bold">열람 비밀번호 :</label>
-                <div class="col-sm-8">
+                <label for="readPassword" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">열람 비밀번호 :</label>
+                <div class="col-12 col-md-9 col-lg-8">
                     <input type="password" class="form-control mr-2 text-left" id="readPassword" placeholder="비밀번호 4자 이상" />
                 </div>
             </div>
-            <div class="form-group row mt-4 mb-4">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4">
-                    <input type="button" class="btn btn-outline-success btn-block" value="돌아가기" onclick="move_to_main();"/>
+            <div class="mt-4 mb-4">
+                <div class="button-middle form-group row">
+                    <div class="col-2"></div>
+                    <div class="col-12 col-md-4 mb-1">
+                        <input type="button" class="btn btn-outline-success btn-block" value="처음으로" onclick="move_to_main();"/>
+                    </div>
+                    <div class="col-1 empty-div"></div>
+                    <div class="col-12 col-md-4 mb-1">
+                        <input type="button" class="btn btn-primary btn-block" value="신청하기" onclick="submit_action();"/>
+                    </div>
                 </div>
-                <div class="col-sm-4 mb-1">
-                    <input type="button" class="btn btn-primary btn-block" value="신청하기" onclick="submit_action();"/>
+                <div class="button-default form-group row">
+                    <div class="col-12 col-md-1"></div>
+                    <div class="col-12 col-md-10 mb-1">
+                        <input type="button" class="btn btn-primary btn-block" value="신청하기" onclick="submit_action();"/>
+                    </div>
+                    <div class="col-12 col-md-1"></div>
+                    <div class="col-12 col-md-1"></div>
+                    <div class="col-12 col-md-10 col-bd-10 mb-1">
+                        <input type="button" class="btn btn-outline-success btn-block" value="처음으로" onclick="move_to_main();"/>
+                    </div>
                 </div>
-                <div class="col-sm-2"></div>
             </div>
         </div>
     </div>

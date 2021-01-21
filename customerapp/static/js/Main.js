@@ -1,5 +1,15 @@
 // javascript 코드
 
+var mySwiper = new Swiper('.swiper-container', {
+    direction: 'vertical',
+    loop: true,
+    speed:600,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+});
+
 // 예약하기 버튼
 function move_to_request() {
     location.href = "/request";

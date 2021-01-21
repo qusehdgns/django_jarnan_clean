@@ -1,6 +1,6 @@
 // javascript 코드
 
-$('#base-logout-button').hide();
+$('.base-logout-unit').hide();
 
 $.ajax({
     url: '/loginCheck',
@@ -8,7 +8,7 @@ $.ajax({
     success: function(result){
         if(result == 'true'){
             $('#base-login-button').hide();
-            $('#base-logout-button').show();
+            $('.base-logout-unit').show();
         }
     }
 });

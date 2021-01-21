@@ -11,77 +11,87 @@
 <!-- Body 태그 내용 -->
 {% block content %}
 <input type="hidden" id="r_num" value="{{ request.r_num }}" />
-<div class="request-base-shape">
+<div class="request-base-shape container">
     <div class="text-left mt-1 ml-3">
         <input type="button" class="btn btn-secondary btn-sm" value="돌아가기" onclick="move_to_request_list();" />
     </div>
-    <div class="request-info-shape text-left pl-4 pr-4">
-        <div class="mt-4 mb-4 row">
-            <span class="request-label font-weight-bold text-right">이름 :</span>
-            <span class="ml-2 text-left">{{ request.client_name }}</span>
+    <div class="text-left pl-4 pr-4">
+        <div class="form-group row mt-4">
+            <span class="col-2 col-sm-3 text-left text-sm-right request-label font-weight-bold">이름 :</span>
+            <span class="col-8 col-sm-9 text-center text-sm-left">{{ request.client_name }}</span>
         </div>
-        <div class="mb-4 row">
-            <span class="request-label font-weight-bold text-right">전화번호 :</span>
-            <span class="ml-2 text-left">{{ request.client_phone }}</span>
+        <div class="form-group row mt-4">
+            <span class="col-2 col-sm-3 text-left text-sm-right request-label font-weight-bold">전화번호 :</span>
+            <span class="col-8 col-sm-9 text-center text-sm-left">{{ request.client_phone }}</span>
         </div>
-        <div class="mb-4 row">
-            <span class="request-label font-weight-bold text-right">주소 :</span>
-            <span class="ml-2 text-left">{{ request.request_address }}</span>
+        <div class="form-group row mt-4">
+            <span class="col-2 col-sm-3 text-left text-sm-right request-label font-weight-bold">주소 :</span>
+            <span class="col-8 col-sm-9 text-center text-sm-left">{{ request.request_address }}</span>
         </div>
-        <div class="mb-4 row">
-            <span class="request-label font-weight-bold text-right">크기 :</span>
-            <span class="ml-2 text-left"><span id="requestSize">{{ request.request_size }}</span> 평 / <span id="requestSizeM"></span> m<sup>2</sup></span>
+        <div class="form-group row mt-4">
+            <span class="col-2 col-sm-3 text-left text-sm-right request-label font-weight-bold">크기 :</span>
+            <span class="col-8 col-sm-9 text-center text-sm-left"><span id="requestSize">{{ request.request_size }}</span> 평 / <span id="requestSizeM"></span> m<sup>2</sup></span>
         </div>
-        <div class="mb-4 row">
-            <span class="request-label font-weight-bold text-right">요청 날짜 :</span>
-            <span class="ml-2 text-left">{{ request.request_date }}</span>
+        <div class="form-group row mt-4">
+            <span class="col-2 col-sm-3 text-left text-sm-right request-label font-weight-bold">요청 날짜 :</span>
+            <span class="col-8 col-sm-9 text-center text-sm-left">{{ request.request_date }}</span>
         </div>
-        {% if items%}
-        <div class="mb-4 row">
-            <span class="request-label font-weight-bold text-right">청소 항목 :</span>
-            <span class="ml-2 text-left request-values">
-                {% for index, temp in items %}
-                {% if index != 0 %}
-                ,&nbsp;
-                {% endif %}
-                {{ temp.clean }}
-                {% endfor %}
-            </span>
+        {% if items %}
+        <div class="form-group row mt-4">
+            <span class="col-12 col-sm-3 text-left text-sm-right mb-1 request-label font-weight-bold">청소 항목 :</span>
+            <div class="col-12 col-sm-8 ml-2 text-left request-values">
+                <div class="form-row">
+                    {% for index, temp in items %}
+                    <div>
+                        {% if index != 0 %}
+                        &nbsp;/&nbsp;
+                        {% endif %}
+                        {{ temp.clean }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
         {% endif %}
         {% if constructs %}
-        <div class="mb-4 row">
-            <span class="request-label font-weight-bold text-right">시공 항목 :</span>
-            <span class="ml-2 text-left request-values">
-                {% for index, temp in constructs %}
-                {% if index != 0 %}
-                ,&nbsp;
-                {% endif %}
-                {{ temp.construct }}
-                {% endfor %}
-            </span>
+        <div class="form-group row mt-4">
+            <span class="col-12 col-sm-3 text-left text-sm-right mb-1 request-label font-weight-bold">시공 항목 :</span>
+            <div class="col-12 col-sm-8 ml-2 text-left request-values">
+                <div class="form-row">
+                    {% for index, temp in constructs %}
+                    <div>
+                        {% if index != 0 %}
+                        &nbsp;/&nbsp;
+                        {% endif %}
+                        {{ temp.construct }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
         {% endif %}
         {% if request.request_memo != "" %}
-        <div class="mb-4 row">
-            <span class="request-label font-weight-bold text-right">요청 사항 :</span>
-            <span class="ml-2 text-left">{{ request.request_memo }}</span>
+        <div class="form-group row mt-4">
+            <span class="col-12 col-sm-3 text-left text-sm-right mb-1 request-label font-weight-bold">요청 사항 :</span>
+            <span class="col-12 col-sm-9 text-left request-memo">{{ request.request_memo }}</span>
         </div>
         {% endif %}
     </div>
     {% if review %}
     <div class="review-shape ml-3 mr-3">
         <div class="review-div form-group row mt-3 ml-2 mr-2 mb-3 pb-2">
-            <div class="review-star col-sm-2">
-                <img class="Star" src="/static/img/Star{{review.scope}}.png"/>
+            <div class="col-12 col-sm-2 review-star">
+                <img class="Star mt-2" src="/static/img/Star{{review.scope}}.png"/>
             </div>
-            <div class="col-sm-8 text-left">
-                <span class="font-weight-bold">{{ review.writer }}</span>
-                <div>
-                    {{ review.review_value }}
+            <div class="col-12 col-sm-8 text-left">
+                <div class="form-group pl-0 pr-0 pt-2">
+                    <span class="font-weight-bold col-12">{{ review.writer }}</span>
+                    <div class="col-12 request-memo">
+                        {{ review.review_value }}
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-2 review-date-div">
+            <div class="col-12 col-sm-2 review-date-div">
                 <span class="review-date text-weight-light">{{ review.review_date}}</span>
             </div>
         </div>
@@ -95,7 +105,7 @@
             <div class="reply-contents">
                 <b>{{ temp.writer }}</b>
                 <div class="base_reply">
-                    <span>{{ temp.reply_value }}</span>
+                    <span class="request-memo">{{ temp.reply_value }}</span>
                 </div>
                 {% if temp.writer == request.client_name %}
                 <div class='update_relpy'>
@@ -116,16 +126,18 @@
         </div>
         {% endfor%}
         {% endif %}
-    </div>
-    <div class="ml-4 mr-4 pt-2 input-reply">
-        <div class="form-group">
-            <span class="col-sm-1 col-form-label pt-0 font-weight-bold text-right">{{ request.client_name }}</span>
-            <div class="row pl-5">
-                <div class="reply-input">
-                    <input class="form-control" type="text" id="comment" />
+        <div class="reply-div">
+            <div class="reply-contents">
+                <div class="form-group row mb-1 mb-sm-1">
+                    <span class="col-12 col-sm-2 font-weight-bold text-left">{{ request.client_name }}</span>
                 </div>
-                <div class="reply-button-div pr-5 text-right">
-                    <input class="btn btn-primary btn-block" type="button" value="댓글달기" onclick="request_reply()" />
+                <div class="form-group row">
+                    <div class="col-12 col-sm-9 col-md-10 pr-3 pr-sm-0 mb-1 mb-sm-0">
+                        <input class="form-control" type="text" id="comment" />
+                    </div>
+                    <div class="col-12 col-sm-3 col-md-2 pl-3 pl-sm-0">
+                        <input class="btn btn-primary btn-block " type="button" value="댓글달기" onclick="request_reply()" />
+                    </div>
                 </div>
             </div>
         </div>

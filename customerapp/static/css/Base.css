@@ -5,9 +5,12 @@ html, body{
     height: 100%;
 }
 
+body{
+    font-family: 'NanumSquareRound',sans-serif;
+}
+
 .shape-base{
-    display: flex;
-    flex-direction: column;
+    display: block;
     width: 100%;
     height: 100%;
     text-align: center;
@@ -21,14 +24,7 @@ html, body{
     }
 }
 
-.request-list-Logo{
-    width: 100%;
-}
-
-.request-list-Logo img{
-    max-width: 80px;
-}
-
-.Logo-click-div{
+.base-logo-img{
+    width: 80px;
     cursor: pointer;
 }

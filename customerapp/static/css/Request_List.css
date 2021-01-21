@@ -43,30 +43,28 @@ table thead tr th{
     font-size: 20px;
 }
 
-table tbody tr td{
+table{
     word-break: keep-all;
 }
 
-@media(max-width : 530px){
+table tbody{
+    font-size: 13px;
+}
+
+@media (min-width: 576px) {
     table tbody{
-        font-size: 90%;
+        font-size: 14px;
     }
 }
 
-@media(max-width : 490px){
+@media (min-width: 768px) {
     table tbody{
-        font-size: 80%;
+        font-size: 15px;
     }
 }
 
-@media(max-width : 450px){
+@media (min-width: 992px) {
     table tbody{
-        font-size: 70%;
-    }
-}
-
-@media(max-width : 410px){
-    table tbody{
-        font-size: 60%;
+        font-size: 16px;
     }
 }
