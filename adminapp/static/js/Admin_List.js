@@ -1,5 +1,7 @@
 // javascript 코드
 
+setTimeout('location.reload()',600000);
+
 var url = new URL(location.href);
 var temp = url.searchParams.get("select");
 
