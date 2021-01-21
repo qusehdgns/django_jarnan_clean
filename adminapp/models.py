@@ -34,6 +34,9 @@ class Request(models.Model):
     # 날짜
     request_date = models.DateField()
 
+    # 청소 단계
+    request_level = models.BooleanField(default=False)
+
     # 메모
     request_memo = models.TextField()
 
@@ -79,7 +82,7 @@ class RequestItem(models.Model):
     # 요청 항목(학교 청소)
     item7 = models.BooleanField(default=False)
 
-    # 요청 항목(관공서 청소)
+    # 요청 항목(상가 청소)
     item8 = models.BooleanField(default=False)
 
     # 요청 항목(외벽 청소)

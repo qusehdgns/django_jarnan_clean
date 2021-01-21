@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
 
 class RequestAdmin(admin.ModelAdmin):
     list_display = ('r_num', 'client_name', 'client_phone', 'request_address',
-    'request_size', 'request_date', 'request_memo', 'admin_memo', 'read_password',
+    'request_size', 'request_date', 'request_level','request_memo', 'admin_memo', 'read_password',
     'read_check', 'upload_date')
 
 class RequestItemAdmin(admin.ModelAdmin):

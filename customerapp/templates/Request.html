@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="form-group row mt-4">
-                <label for="requestSize" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">요청 규모 :</label>
+                <label for="requestSize" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">분양 기준 :</label>
                 <div class="col-12 col-md-4 mb-1 mb-md-0">
                     <div class="input-group">
                         <input type="text" class="form-control text-right" id="requestSize" placeholder="평 수"/>
@@ -63,6 +63,21 @@
                 <label for="requestDate" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">요청 날짜 :</label>
                 <div class="col-12 col-md-9 col-lg-8">
                     <input type='date' class="form-control text-right" id='requestDate'/>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">단계 :</label>
+                <div class="col-12 col-md-9 col-lg-8 pt-md-2 pl-4">
+                    <div class="form-row">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="requestLevel" value="false" checked/>
+                            <label class="checkbox-label-click form-check-label" onclick="label_click_check(this);">클래식</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="requestLevel" value="true"/>
+                            <label class="checkbox-label-click form-check-label" onclick="label_click_check(this);">프리미엄</label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group row mt-4">

@@ -17,8 +17,11 @@ from datetime import datetime as dt
 # 데이터베이스
 from adminapp.models import User, Request, RequestItem, Construction, Comment, Review
 
+# 문자 api
+from adminapp.sms_api import send_sms
+
 clean = ['입주 청소', '이사 청소', '인테리어 후 청소', '사무실 청소', '식당 청소',
-         '준공 청소', '학교 청소', '관공서 청소', '외벽 청소', '거주 청소', '계단 청소', '특수 청소']
+         '준공 청소', '학교 청소', '상가 청소', '외벽 청소', '거주 청소', '계단 청소', '특수 청소']
 construct = ['마루코팅', '타일코팅', '나노코팅', '주방상판', '대리석연마']
 
 # Main 페이지 호출
@@ -134,12 +137,20 @@ def clientRequest(request):
     # phone 세션에 저장
     request.session['phone'] = data['clientPhone']
 
+    if data['requestLevel'] == "true":
+        requestLevel = True
+    else:
+        requestLevel = False
+
     client = Request.objects.create(client_name=data['clientName'], client_phone=data['clientPhone'],
                                     request_address=data['requestAddress'], request_size=data['requestSize'],
-                                    request_date=data['requestDate'], request_memo=data['requestMemo'],
-                                    read_password=data['readPassword'])
+                                    request_date=data['requestDate'], request_level=requestLevel,
+                                    request_memo=data['requestMemo'], read_password=data['readPassword'])
 
-    Itembool = [False for i in range(12)]
+    # 문자 발송
+    # send_sms(data)
+
+    Itembool = [False for i in range(len(clean))]
 
     for temp in data['requestClean'].split(','):
         Itembool[clean.index(temp)] = True

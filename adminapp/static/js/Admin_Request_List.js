@@ -9,16 +9,29 @@ if (page == null) {
 }
 
 // endDate
-if($('#startDate').val() != ""){
+if ($('#startDate').val() != "") {
     check_endDate();
 }
 
-function check_endDate(){
+function check_endDate() {
     var endDate = $('#endDate');
     var startDate = $('#startDate').val();
     endDate.attr("min", startDate);
 }
 //////////
+
+// 라디오 버튼 체크
+$('input:radio[name=selectLevel]').click(function () {
+    var val = $(this).data('storedValue');
+    if (val) {
+        $(this).prop('checked', !val);
+        $(this).data('storedValue', !val);
+    }
+    else {
+        $(this).data('storedValue', true);
+        $("input[type=radio]:not(:checked)").data("storedValue", false);
+    }
+})
 
 // 검색 버튼
 function search_request(sort) {
@@ -37,9 +50,12 @@ function search_request(sort) {
     var startDate = $('#startDate').val();
     var endDate = $('#endDate').val();
 
+    var selectLevel = $('input:radio[name=selectLevel]:checked').val();
+
     if (selectClean.length == 0 &&
         selectConstruct.length == 0 &&
-        startDate == "" && endDate == "") {
+        startDate == "" && endDate == "" &&
+        selectLevel == undefined) {
         return;
     }
 
@@ -52,16 +68,20 @@ function search_request(sort) {
         newForm.append($('<input/>', { type: 'hidden', name: 'selectClean', value: selectClean }));
     }
 
-    if (selectConstruct.length != 0){
+    if (selectConstruct.length != 0) {
         newForm.append($('<input/>', { type: 'hidden', name: 'selectConstruct', value: selectConstruct }));
     }
 
-    if (startDate != ""){
+    if (startDate != "") {
         newForm.append($('<input/>', { type: 'hidden', name: 'startDate', value: startDate }));
     }
 
-    if (endDate != ""){
+    if (endDate != "") {
         newForm.append($('<input/>', { type: 'hidden', name: 'endDate', value: endDate }));
+    }
+
+    if (selectLevel != undefined) {
+        newForm.append($('<input/>', { type: 'hidden', name: 'selectLevel', value: selectLevel }));
     }
 
     newForm.appendTo('body');
@@ -72,17 +92,17 @@ function search_request(sort) {
 //////////
 
 // 초기화 버튼
-function reset_search(){
+function reset_search() {
     location.href = "/admin/request_list?select=" + select + "&page=1&sort=base";
 }
 //////////
 
 // Sorting
-function select_sorting(object){
+function select_sorting(object) {
     var select_sort = $(object).find("input:hidden").val();
 
-    if(select_sort != sort){
-        if($('#filter_check').val() == "true"){
+    if (select_sort != sort) {
+        if ($('#filter_check').val() == "true") {
             search_request(select_sort)
         } else {
             location.href = "/admin/request_list?select=" + select + "&page=1&sort=" + select_sort;

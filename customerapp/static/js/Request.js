@@ -190,6 +190,8 @@ function submit_action() {
 
     var requestDate = $('#requestDate').val();
 
+    var requestLevel = $('input:radio[name=requestLevel]:checked').val();
+
     var requestClean = new Array();
 
     $("input:checkbox[name=requestClean]:checked").each(function () {
@@ -222,11 +224,18 @@ function submit_action() {
         return;
     }
 
+    var showLevel = "클래식";
+
+    if(requestLevel != "false"){
+        showLevel = "프리미엄";
+    }
+
     var result = "예약자 : " + clientName
         + "\n전화번호 : " + clientPhone
         + "\n주소 : " + requestAddress
         + "\n크기 : " + requestSize + " 평 / " + requestSizeM + " m^2"
         + "\n날짜 : " + requestDate
+        + "\n단계 : " + showLevel
         + "\n청소 항목 : " + requestClean
         + "\n시공 항목 : " + requestConstruct;
 
@@ -244,6 +253,7 @@ function submit_action() {
     formData.append('requestAddress', requestAddress);
     formData.append('requestSize', requestSize);
     formData.append('requestDate', requestDate);
+    formData.append('requestLevel', requestLevel);
     formData.append('requestClean', requestClean);
     formData.append('requestConstruct', requestConstruct);
     formData.append('requestMemo', requestMemo);

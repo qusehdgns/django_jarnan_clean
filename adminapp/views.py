@@ -20,7 +20,7 @@ from django.db.models import Q
 from adminapp.models import User, Request, RequestItem, Construction, Comment, Review
 
 clean = ['입주 청소', '이사 청소', '인테리어 후 청소', '사무실 청소', '식당 청소',
-         '준공 청소', '학교 청소', '관공서 청소', '외벽 청소', '거주 청소', '계단 청소', '특수 청소']
+         '준공 청소', '학교 청소', '상가 청소', '외벽 청소', '거주 청소', '계단 청소', '특수 청소']
 construct = ['마루코팅', '타일코팅', '나노코팅', '주방상판', '대리석연마']
 
 
@@ -139,6 +139,16 @@ def admin_request_list_call(request):
                 filtering['endDate'] = endDate
 
                 requestObject = requestObject.filter(request_date__lte=endDate)
+
+            if "selectLevel" in request.POST:
+                selectLevel = request.POST['selectLevel']
+
+                filtering['selectLevel'] = selectLevel
+
+                if selectLevel == "true":
+                    requestObject = requestObject.filter(request_level=True)
+                else:
+                    requestObject = requestObject.filter(request_level=False)
 
         if select == "all":
             requestData = requestObject.all().order_by(sorting, '-upload_date').values()
