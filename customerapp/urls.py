@@ -52,4 +52,7 @@ urlpatterns = [
 
     # 클라이언트 리뷰
     path('review', views.review),
+
+    # 로그인 확인
+    path('loginCheck', views.loginCheck),
 ]

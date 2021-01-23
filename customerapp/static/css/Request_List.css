@@ -1,5 +1,13 @@
 /* css 코드 */
 
+.request-list-base{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
 .request_list{
     cursor: pointer;
 }
@@ -16,9 +24,8 @@
     display: none;
 }
 
-.test{
-    margin-top: -25px;
-    margin-bottom: -15px;
+.input_review:hover{
+    background-color: white !important;
 }
 
 .star a{
@@ -30,4 +37,36 @@
 .star a.on{
     font-size: 25px;
     color: rgb(255, 255, 0);
+}
+
+table thead tr th{
+    font-size: 20px;
+}
+
+table tbody tr td{
+    word-break: keep-all;
+}
+
+@media(max-width : 530px){
+    table tbody{
+        font-size: 90%;
+    }
+}
+
+@media(max-width : 490px){
+    table tbody{
+        font-size: 80%;
+    }
+}
+
+@media(max-width : 450px){
+    table tbody{
+        font-size: 70%;
+    }
+}
+
+@media(max-width : 410px){
+    table tbody{
+        font-size: 60%;
+    }
 }

@@ -1,1 +1,95 @@
 /* css 코드 */
+
+.request-base-shape{
+    background-color: rgba(214, 214, 214, 0.1);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.request-input-feild{
+    margin-left: 3rem;
+}
+
+.label-div{
+    white-space: nowrap;
+    text-align: right;
+}
+
+.long-label-div{
+    min-width: 150px;
+}
+
+.size-div{
+    margin-left: 3rem !important;
+}
+
+.checkbox-div{
+    margin-right: 15px;
+}
+
+.checkbox-div-shape{
+    margin-left: 3rem !important;
+}
+
+@media (max-width: 1002px){
+    .size-div{
+        margin-left: 1rem !important;
+    }
+    .checkbox-div-shape{
+        margin-left: 2rem !important;
+    }
+    .long-label-div{
+        margin-left: -1rem !important;
+    }
+}
+
+@media (max-width: 900px){
+    .size-div{
+        margin-left: 0 !important;
+    }
+    .checkbox-div-shape{
+        margin-left: 1rem !important;
+    }
+    .long-label-div{
+        margin-left: -2rem !important;
+    }
+}
+
+@media (max-width: 750px){
+    .long-label-div{
+        margin-left: -3rem !important;
+    }
+}
+
+@media (max-width: 575px){
+    .request-input-feild{
+        margin-left: 0 !important;
+    }
+    .label-div{
+        text-align: left !important;
+    }
+    .size-div{
+        margin-right: 0.5rem !important;
+    }
+    .checkbox-div-shape{
+        margin-left: 0 !important;
+    }
+    .long-label-div{
+        margin-left: 0 !important;
+    }
+}
+
+span{
+    word-break: keep-all;
+}
+
+.checkbox-label-click{
+    cursor: pointer !important;
+}
+
+.memo-size{
+    height: 100px !important;
+    resize: none !important;
+}

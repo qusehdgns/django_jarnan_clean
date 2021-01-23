@@ -164,10 +164,12 @@ def request_list_call(request):
                 temp['review'] = True
 
         requestList.append(temp)
-
+    
+    if requestList:
+        requestList = enumerate(requestList, start=1)
 
     return render(request, 'Request_List.html',
-                  {"name": name, 'requestList': enumerate(requestList, start=1)})
+                  {"name": name, 'requestList': requestList })
 
 
 # 비밀번호 확인
@@ -196,8 +198,12 @@ def reading_request_call(request):
 
         for data in items:
             for index, value in enumerate(clean, start=1):
-                temp = {"clean": value, "value": data['item' + str(index)]}
-                cleanItems.append(temp)
+                if data['item' + str(index)]:
+                    temp = { "clean" : value }
+                    cleanItems.append(temp)
+    
+        if cleanItems:
+            cleanItems = enumerate(cleanItems)
 
         constructs = Construction.objects.filter(r_num=clientRequest).values()
 
@@ -205,9 +211,13 @@ def reading_request_call(request):
 
         for data in constructs:
             for index, value in enumerate(construct, start=1):
-                temp = {"construct": value, "value": data['item' + str(index)]}
-                constructions.append(temp)
-
+                if data['item' + str(index)]:
+                    temp = { "construct": value }
+                    constructions.append(temp)
+    
+        if constructions:
+            constructions = enumerate(constructions)
+        
         comments = Comment.objects.filter(r_num=clientRequest).order_by("reply_date").values()
 
         replys = []
@@ -216,13 +226,14 @@ def reading_request_call(request):
             temp = { 'id' : data['id'], 'writer' : data['writer'], 'reply_value' : data['reply_value'] }
             replys.append(temp)
         
-        reviews = Review.objects.get(r_num=clientRequest)
-
-        print(reviews.writer)
+        reviews = None
+        
+        if Review.objects.filter(r_num=clientRequest).exists() == True:
+            reviews = Review.objects.get(r_num=clientRequest)
 
         return render(request, "Reading_Request.html",
-                      {"request": clientRequest, "items": enumerate(cleanItems),
-                      "constructs": enumerate(constructions), 'comments' : replys,
+                      {"request": clientRequest, "items": cleanItems,
+                      "constructs": constructions, 'comments' : replys,
                       "review" : reviews })
 
     return redirect("request_list_call")
@@ -285,3 +296,10 @@ def review(request):
                         scope=data['scope'],review_value=data['value'])
 
     return HttpResponse()
+
+# 로그인 확인
+def loginCheck(request):
+    if request.session.has_key('name'):
+        return HttpResponse("true")
+    
+    return HttpResponse("false")

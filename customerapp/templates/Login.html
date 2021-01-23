@@ -1,28 +1,52 @@
-<!-- Base.html 상속 -->
-{% extends 'Base.html' %}
-<!-- static 파일 선언-->
 {% load static %}
+<!DOCTYPE html>
+<html>
 
-<!-- css 선언 -->
-{% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/Login.css' %}">
-{% endblock css %}
+    <head>
+        <!-- title 지정 -->
+        <title>Jal Clean</title>
 
-<!-- Body 태그 내용 -->
-{% block content %}
-<h1>Log In</h1>
-<form method="POST" action="{% url 'login_call' %}">
-    {% csrf_token %}
-    이름 : <input type="text" name="clientName" placeholder="Name"/>
-    <p/>
-    전화번호 : <input type="text" id="clientPhone" name="clientPhone" placeholder="Phone Number" maxlength="13" value="{{phone}}"/>
-    <p/>
-    <input type="submit" value="Log In"/>
-    <input type="button" value="Go to Main" onclick="move_to_main()"/>
-</form>
-{% endblock content %}
+        <!-- Favicon 아이콘 설정 -->
+        <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
 
-<!-- javascript 선언 -->
-{% block js %}
-<script type="text/javascript" src="{% static 'js/Login.js' %}"></script>
-{% endblock js %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/Login.css' %}">
+        <!-- jquery 선언 -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <!-- Body 태그 내부 내용 -->
+        <div class="shape-base">
+            <div class="Login-Base">
+                <div class="Logo-img">
+                    <img class="pl-1" src="{% static 'img/Jar_Logo_2.png' %}" onclick="move_to_main()"/>
+                </div>
+                <div class="Login-Form-Base">
+                    <form id="login-form" class="pr-2" method="POST" action="{% url 'login_call' %}">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="clientName" class="col-sm-2 col-form-label text-center font-weight-bold pl-3">이름</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Name"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="clientPhone" class="col-sm-2 col-form-label text-center font-weight-bold pl-3 ">전화번호</label>
+                            <div class="col-sm-10 mb-3">
+                                <input type="text" class="form-control" id="clientPhone" name="clientPhone" placeholder="Phone Number" maxlength="13"/>
+                            </div>
+                            <div class="col-sm-12 pl-3">
+                                <input type="button" class="btn btn-primary btn-block" value="로그인" onclick="do_login();"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{% static 'js/Login.js' %}"></script>
+    </body>
+</html>

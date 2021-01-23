@@ -10,54 +10,75 @@
 
 <!-- Body 태그 내용 -->
 {% block content %}
-<h2>{{name}}님의 예약 현황</h2>
-{% if requestList %}
-<table>
-    {% for i, temp in requestList %}
-    <tr onclick="select_request(this);" class="request_list">
-        <td class="request_num"><input type="hidden" value="{{temp.r_num}}"/></td>
-        <td>{{i}}</td>
-        <td>{{temp.request_date}}</td>
-        <td>{{temp.request_address}}</td>
-        <td>{{temp.upload_date|date:"Y-m-d H:m:s"}}</td>
-    </tr>
-    {% if temp.review %}
-    <tr class="input_review">
-        <td colspan="4">
-            <div>
-                <div class="test">
-                    <p class="star">
-                        <a href="#" value="1">★</a>
-                        <a href="#" value="2">★</a>
-                        <a href="#" value="3">★</a>
-                        <a href="#" value="4">★</a>
-                        <a href="#" value="5">★</a>
-                    </p>
-                </div>
-                <input type="text" placeholder="리뷰는 큰 힘이 됩니다."/>
-                <input type="button" value="확인" onclick="create_review(this,'{{temp.r_num}}');"/>
-            </div>
-        </td>
-    </tr>
-    {% else %}
-    <tr class="input_password">
-        <td colspan="3">
-            <form id="{{temp.r_num}}" method="POST" action="/reading_request?r_num={{temp.r_num}}">
-                {% csrf_token %}
-                <input class="password" type="password" name="readPassword" placeholder="확인 비밀번호"/>
-            </form>
-        </td>
-        <td><input type="button" value="확인" onclick="check_password('{{temp.r_num}}');"/></td>
-    </tr>
-    {% endif %}
-    {% endfor %}
-</table>
-<p/>
-{% else %}
-<h4>예약 기록이 없습니다.</h4>
-{% endif %}
-<input type="button" value="예약하기" onclick="move_to_request();"/>
-<input type="button" value="로그아웃" onclick="move_to_login();"/>
+<div class="request-list-base mt-1">
+    <table class="table table-hover">
+        <thead>
+            <tr class="text-center">
+                <th colspan="4">{{name}}님의 예약 현황</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if requestList %}
+            {% for i, temp in requestList %}
+            <tr onclick="select_request(this);" class="request_list">
+                <td class="request_num"><input type="hidden" value="{{temp.r_num}}"/></td>
+                <td>{{i}}</td>
+                <td>{{temp.request_date}}</td>
+                <td>{{temp.request_address}}</td>
+                <td>{{temp.upload_date|date:"Y-m-d H:m:s"}}</td>
+            </tr>
+            {% if temp.review %}
+            <tr class="input_review" onclick="tr_review_focus(this);">
+                <td colspan="4">
+                    <div class="form-group row mb-0">
+                        <div class="col-sm-3">
+                            <span class="star">
+                                <a href="#" value="1">★</a>
+                                <a href="#" value="2">★</a>
+                                <a href="#" value="3">★</a>
+                                <a href="#" value="4">★</a>
+                                <a href="#" value="5">★</a>
+                            </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control review-input" type="text" placeholder="리뷰는 큰 힘이 됩니다."/>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="btn btn-outline-success btn-block" type="button" value="확인" onclick="create_review(this,'{{temp.r_num}}');"/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% else %}
+            <tr class="input_password tr table-dark" onclick="tr_password_focus(this);">
+                <td colspan="4">
+                    <form id="{{temp.r_num}}" method="POST" action="/reading_request?r_num={{temp.r_num}}">
+                        {% csrf_token %}
+                        <div class="form-group row mb-0">
+                            <div class="col-sm-10 text-center">
+                                <input class="form-control password" type="password" name="readPassword" placeholder="확인 비밀번호"/>
+                            </div>
+                            <div class="col-sm-2 text-center">
+                                <input class="btn btn-success btn-block" type="button" value="확인" onclick="check_password('{{temp.r_num}}');"/>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <tr>   
+                <td colspan="4"><h4 class="font-weight-bold">예약 기록이 없습니다.</h4></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    
+    <div>
+        <button type="button" class="btn btn-primary btn-block" onclick="move_to_request();">예약하기</button>
+    </div>
+</div>
 {% endblock content %}
 
 <!-- javascript 선언 -->

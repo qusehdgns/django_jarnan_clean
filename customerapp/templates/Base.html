@@ -21,17 +21,33 @@
         {% block css %}
         {% endblock css %}
 
+        <link rel="stylesheet" type="text/css" href="{% static 'css/Base.css' %}">
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     </head>
 
     <body>
         <!-- Body 태그 내부 내용 -->
-        {% block content %}
-        {% endblock content %}
+        <div class="shape-base">
+            <div class="request-list-Logo form-group row mt-2 mb-0">
+                <div class="col-sm-9 Logo-click-div pl-5" onclick="move_to_main();">
+                    <img src="{% static 'img/Jar_Logo_1.png' %}">
+                </div>
+                <div class="col-sm-3 pt-1 pl-5">
+                    <input type="button" id="base-logout-button" class="btn btn-outline-dark btn-block" value="로그아웃" onclick="logout()"/>
+                    <input type="button" id="base-login-button" class="btn btn-outline-primary btn-block" value="로그인" onclick="move_to_login();"/>
+                </div>
+            </div>
+
+            {% block content %}
+            {% endblock content %}
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
         <!-- javascript 선언 내용 -->
         {% block js %}
         {% endblock js %}
+
+        <script type="text/javascript" src="{% static 'js/Base.js' %}"></script>
     </body>
 </html>

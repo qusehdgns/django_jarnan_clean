@@ -64,12 +64,12 @@ $("select[name=firstAddress]").each(function () {
     $.each(eval(area0), function () {
         firstAddress.append("<option value='" + this + "'>" + this + "</option>");
     });
-    firstAddress.next().append("<option value=''>구/군 선택</option>");
+    $('#secondAddress').append("<option value=''>구/군 선택</option>");
 });
 
 $("select[name=firstAddress]").change(function () {
     var area = "area" + $("option", $(this)).index($("option:selected", $(this))); // 선택지역의 구군 Array
-    var secondAddress = $(this).next(); // 선택영역 군구 객체
+    var secondAddress = $('#secondAddress');// 선택영역 군구 객체
     $("option", secondAddress).remove(); // 구군 초기화
 
     if (area == "area0")
@@ -126,6 +126,11 @@ $("#requestDate").attr("min", today);
 
 $("#requestDate").val(today);
 //////////
+
+// checkbox 선택
+function label_click_check(object){
+    $(object).prev().trigger('click');
+}
 
 // 확인 버튼
 function submit_action() {

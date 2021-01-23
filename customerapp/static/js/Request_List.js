@@ -4,18 +4,6 @@
 var scope = 5;
 $('.star').find("a[value='5']").addClass("on").prevAll("a").addClass("on");
 
-// 예약하기 버튼
-function move_to_request() {
-    location.href = "/request";
-}
-//////////
-
-// 로그아웃 버튼
-function move_to_login() {
-    location.href = "/login";
-}
-//////////
-
 // 테이블 선택 시
 function select_request(object) {
     scope = 5;
@@ -23,7 +11,19 @@ function select_request(object) {
     $('.input_password').hide();
     $('.input_review').hide();
     $('.password').val("");
+    $('.review-input').val("");
     $(object).next().show();
+    $(object).next().trigger('click');
+}
+
+// review tr 선택
+function tr_review_focus(object){
+    $(object).find("input:text").focus();
+}
+
+// password tr 선택
+function tr_password_focus(object){
+    $(object).find("input:password").focus();
 }
 
 // 비밀번호 확인
@@ -72,7 +72,7 @@ $('.star a').click(function () {
 
 // 리뷰 확인
 function create_review(object, value) {
-    var textIndex = $(object).prev()
+    var textIndex = $(object).parent().prev().find("input:text")
     var reviewValue = textIndex.val();
 
     if(reviewValue == "" || reviewValue == undefined){
@@ -92,4 +92,9 @@ function create_review(object, value) {
             }
         });
     }
+}
+
+// 예약하기 버튼
+function move_to_request(){
+    location.href="/request"
 }

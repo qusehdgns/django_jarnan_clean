@@ -16,9 +16,9 @@ $('#requestSizeM').text(othervalue.toFixed(2));
 // 댓글 수정 초기화 함수
 function refresh_reply(object){
     $('.update_relpy').hide();
-    $('.base_reply').show();
+    $('.base_reply').css('display', 'flex');
 
-    var reply = object.prev().prev().children().text();
+    var reply = object.prev().children().next().find('span').text();
     object.prev().find("input:text").val(reply);
 }
 
@@ -28,11 +28,11 @@ function comment_update(object){
 
     refresh_reply(div);
 
-    div.prev().prev().hide();
-    div.prev().show();
+    div.prev().children().next().hide();
+    div.prev().children().next().next().css('display', 'flex');
 
     div.hide();
-    div.next().show();
+    div.next().css('display', 'flex');
 }
 //////////
 
@@ -90,7 +90,7 @@ function update_submit(object){
 // 댓글 취소 버튼
 function update_cancel(){
     $('.update_relpy').hide();
-    $('.base_reply').show();
+    $('.base_reply').css('display', 'flex');
 }
 //////////
 

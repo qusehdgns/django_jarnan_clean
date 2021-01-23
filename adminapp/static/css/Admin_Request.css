@@ -39,10 +39,6 @@
     margin: 0 16px;
 }
 
-.reply-value{
-    word-break: break-all;
-}
-
 .update_relpy{
     display: flex;
     flex-direction: column;

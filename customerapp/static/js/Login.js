@@ -44,3 +44,19 @@ $('#clientPhone').on('keyup', function (event) {
 function move_to_main(){
     location.href = "/";
 }
+
+// login 버튼
+function do_login(){
+    var clientName = $('#clientName').val();
+    var clientPhone = $('#clientPhone').val();
+
+    if(clientName == "" || clientName == undefined){
+        alert("이름을 입력해주세요.");
+        $('#clientName').focus();
+    } else if(clientPhone == "" || clientPhone == undefined){
+        alert("전화번호를 입력해주세요.");
+        $('#clientPhone').focus();
+    } else{
+        $('#login-form').submit();
+    }
+}
