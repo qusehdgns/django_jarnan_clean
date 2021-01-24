@@ -28,3 +28,8 @@ body{
     width: 80px;
     cursor: pointer;
 }
+
+
+.base-logout-unit{
+    display: none;
+}

@@ -1,7 +1,4 @@
 // javascript 코드
-
-$('.base-logout-unit').hide();
-
 $.ajax({
     url: '/loginCheck',
     type: 'GET',
