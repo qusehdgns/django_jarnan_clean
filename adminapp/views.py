@@ -21,7 +21,7 @@ from adminapp.models import User, Request, RequestItem, Construction, Comment, R
 
 clean = ['입주 청소', '이사 청소', '인테리어 후 청소', '사무실 청소', '식당 청소',
          '준공 청소', '학교 청소', '상가 청소', '외벽 청소', '거주 청소', '계단 청소', '특수 청소']
-construct = ['마루코팅', '타일코팅', '나노코팅', '주방상판', '대리석연마']
+construct = ['마루코팅', '타일코팅', '나노코팅', '줄눈시공', '주방상판', '대리석연마']
 
 
 @csrf_exempt

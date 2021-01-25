@@ -22,11 +22,10 @@ from adminapp.sms_api import send_sms
 
 clean = ['입주 청소', '이사 청소', '인테리어 후 청소', '사무실 청소', '식당 청소',
          '준공 청소', '학교 청소', '상가 청소', '외벽 청소', '거주 청소', '계단 청소', '특수 청소']
-construct = ['마루코팅', '타일코팅', '나노코팅', '주방상판', '대리석연마']
+construct = ['마루코팅', '타일코팅', '나노코팅', '줄눈시공', '주방상판', '대리석연마']
+
 
 # Main 페이지 호출
-
-
 def main_call(request):
 
     reviewData = Review.objects.filter(scope=5).order_by('-review_date').values()[:5]
@@ -123,9 +122,8 @@ def request_call(request):
 
     return render(request, 'Request.html', {"name": name, "phone": phone, "clean": clean, "construct": construct})
 
+
 # 신청
-
-
 @csrf_exempt
 def clientRequest(request):
     # Post 형식 데이터 저장
@@ -152,8 +150,9 @@ def clientRequest(request):
 
     Itembool = [False for i in range(len(clean))]
 
-    for temp in data['requestClean'].split(','):
-        Itembool[clean.index(temp)] = True
+    if data['requestClean'] != "":
+        for temp in data['requestClean'].split(','):
+            Itembool[clean.index(temp)] = True
 
     RequestItem.objects.create(r_num=client, item1=Itembool[0], item2=Itembool[1],
                                item3=Itembool[2], item4=Itembool[3], item5=Itembool[4],
@@ -161,13 +160,15 @@ def clientRequest(request):
                                item9=Itembool[8], item10=Itembool[9], item11=Itembool[10],
                                item12=Itembool[11])
 
-    Cunstructbool = [False for i in range(5)]
+    Cunstructbool = [False for i in range(len(construct))]
 
-    for temp in data['requestConstruct'].split(','):
-        Cunstructbool[construct.index(temp)] = True
+    if data['requestConstruct'] != "":
+        for temp in data['requestConstruct'].split(','):
+            Cunstructbool[construct.index(temp)] = True
 
     Construction.objects.create(r_num=client, item1=Cunstructbool[0], item2=Cunstructbool[1],
-                                item3=Cunstructbool[2], item4=Cunstructbool[3], item5=Cunstructbool[4])
+                                item3=Cunstructbool[2], item4=Cunstructbool[3], item5=Cunstructbool[4],
+                                item6=Cunstructbool[5])
 
     return HttpResponse(data['clientName'] + " 님 예약이 완료되었습니다.")
 

@@ -15,7 +15,7 @@ class RequestItemAdmin(admin.ModelAdmin):
     'item6', 'item7', 'item8', 'item9', 'item10', 'item11', 'item12')
 
 class ConstructionAdmin(admin.ModelAdmin):
-    list_display = ('r_num', 'item1', 'item2', 'item3', 'item4', 'item5')
+    list_display = ('r_num', 'item1', 'item2', 'item3', 'item4', 'item5', 'item6')
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('r_num', 'writer', 'reply_value', 'reply_date')

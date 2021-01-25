@@ -106,20 +106,23 @@ class Construction(models.Model):
     # 게시물 기본키(FK)
     r_num = models.ForeignKey(Request, on_delete=models.CASCADE)
 
-    # 요청 항목(입주 청소)
+    # 요청 항목(마루코팅)
     item1 = models.BooleanField(default=False)
 
-    # 요청 항목(이사 청소)
+    # 요청 항목(타일코팅)
     item2 = models.BooleanField(default=False)
 
-    # 요청 항목(인테리어 후 청소)
+    # 요청 항목(나노코팅)
     item3 = models.BooleanField(default=False)
 
-    # 요청 항목(사무실 청소)
+    # 요청 항목(줄눈시공)
     item4 = models.BooleanField(default=False)
 
-    # 요청 항목(식당 청소)
+    # 요청 항목(주방상판)
     item5 = models.BooleanField(default=False)
+
+    # 요청 항목(대리석 연마)
+    item6 = models.BooleanField(default=False)
 
     class Meta:
         # 데이터베이스 테이블 명 'constructions'

@@ -198,19 +198,14 @@ function submit_action() {
         requestClean.push($(this).val());
     })
 
-    if (requestClean.length == 0) {
-        alert("청소 항목을 선택해주세요.");
-        return;
-    }
-
     var requestConstruct = new Array();
 
     $("input:checkbox[name=requestConstruct]:checked").each(function () {
         requestConstruct.push($(this).val());
     })
 
-    if (requestConstruct.length == 0) {
-        alert("시공 항목을 선택해주세요.");
+    if ((requestClean.length + requestConstruct.length) == 0) {
+        alert("청소 또는 시공 항목을 선택해주세요.");
         return;
     }
 
@@ -235,9 +230,15 @@ function submit_action() {
         + "\n주소 : " + requestAddress
         + "\n크기 : " + requestSize + " 평 / " + requestSizeM + " m^2"
         + "\n날짜 : " + requestDate
-        + "\n단계 : " + showLevel
-        + "\n청소 항목 : " + requestClean
-        + "\n시공 항목 : " + requestConstruct;
+        + "\n단계 : " + showLevel;
+
+    if(requestClean.length != 0){
+        result += "\n청소 항목 : " + requestClean;
+    }
+
+    if(requestConstruct.length != 0){
+        result += "\n시공 항목 : " + requestConstruct;
+    }
 
     if (requestMemo != "" && requestMemo != undefined) {
         result += "\n요청 사항 : " + requestMemo;
