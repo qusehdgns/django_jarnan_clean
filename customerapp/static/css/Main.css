@@ -60,6 +60,7 @@
 
 .sample-img-div img{
     width: 100%;
+    opacity: 0.85;
 }
 
 .star{
