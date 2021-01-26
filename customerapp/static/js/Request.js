@@ -158,6 +158,8 @@ function label_click_check(object){
 
 // 확인 버튼
 function submit_action() {
+    date_check();
+
     var clientName = $('#clientName').val();
 
     if (clientName == "" || clientName == undefined) {
