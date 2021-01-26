@@ -17,7 +17,7 @@
             <div class="form-group row mt-4">
                 <label for="clientName" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">이름 :</label>
                 <div class="col-12 col-md-9 col-lg-8">
-                    <input type="text" class="form-control mr-2 text-left" id="clientName" placeholder="예약자 성함" value="{{name}}" autocomplete="off"/>
+                    <input type="text" class="form-control mr-2 text-left" id="clientName" placeholder="예약자 성함" value="{{name}}" autocomplete="off" maxlength="10"/>
                 </div>
             </div>
             <div class="form-group row mt-4">
@@ -43,7 +43,7 @@
                 <label for="requestSize" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">분양 기준 :</label>
                 <div class="col-12 col-md-4 mb-1 mb-md-0">
                     <div class="input-group">
-                        <input type="text" class="form-control text-right" id="requestSize" placeholder="평 수"/>
+                        <input type="text" class="form-control text-right" id="requestSize" placeholder="평 수" onchange="sizecheck();"/>
                         <div class="input-group-append">
                             <div class="input-group-text size-unit">평</div>
                         </div>
@@ -52,7 +52,7 @@
                 <div class="col-12 col-md-1 empty-div"></div>
                 <div class="col-12 col-md-4">
                     <div class="input-group">
-                        <input type="text" class="form-control text-right" id="requestSizeM" placeholder="제곱미터"/>
+                        <input type="text" class="form-control text-right" id="requestSizeM" placeholder="제곱미터" onchange="sizecheck();"/>
                         <div class="input-group-append">
                             <div class="input-group-text size-unit">m<sup>2</sup></div>
                         </div>
@@ -62,7 +62,7 @@
             <div class="form-group row mt-4">
                 <label for="requestDate" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">요청 날짜 :</label>
                 <div class="col-12 col-md-9 col-lg-8">
-                    <input type='date' class="form-control text-right" id='requestDate'/>
+                    <input type='date' class="form-control text-right" id='requestDate' onchange="date_check();"/>
                 </div>
             </div>
             <div class="form-group row mt-4">
@@ -115,7 +115,7 @@
             <div class="form-group row mt-4 mb-4">
                 <label for="readPassword" class="label-div text-sm-left text-md-right col-12 col-md-2 col-form-label font-weight-bold">열람 비밀번호 :</label>
                 <div class="col-12 col-md-9 col-lg-8">
-                    <input type="password" class="form-control mr-2 text-left" id="readPassword" placeholder="비밀번호 4자 이상" />
+                    <input type="password" class="form-control mr-2 text-left" id="readPassword" placeholder="비밀번호 4자 이상" maxlength="20"/>
                 </div>
             </div>
             <div class="mt-4 mb-4">

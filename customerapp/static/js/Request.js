@@ -104,6 +104,18 @@ $('#requestSizeM').on('keyup', function (event) {
 
     $('#requestSize').val(othervalue.toFixed(2));
 });
+
+function sizecheck(){
+    var size = $('#requestSize').val();
+
+    if(size > 2147483640){
+        $('#requestSize').val('2147483640');
+
+        var othervalue = 2147483640 * 3.305785;
+
+        $('#requestSizeM').val(othervalue.toFixed(2));
+    }
+}
 //////////
 
 // 요청 날짜 기본값 설정
@@ -125,6 +137,18 @@ var today = year + "-" + month + "-" + day;
 $("#requestDate").attr("min", today);
 
 $("#requestDate").val(today);
+
+function date_check(){
+    var date = $('#requestDate').val();
+
+    var inputdate = new Date(date);
+
+    var todaydate = new Date(today);
+
+    if(inputdate < todaydate){
+        $("#requestDate").val(today);
+    }
+}
 //////////
 
 // checkbox 선택
@@ -190,6 +214,12 @@ function submit_action() {
 
     var requestDate = $('#requestDate').val();
 
+    if(requestDate.length > 10){
+        alert("날짜 형식을 확인해주세요.");
+        $('#startDate').focus();
+        return;
+    }
+
     var requestLevel = $('input:radio[name=requestLevel]:checked').val();
 
     var requestClean = new Array();
@@ -247,6 +277,8 @@ function submit_action() {
     if (!confirm(result)) {
         return;
     }
+
+    requestSize = Math.ceil(requestSize);
 
     var formData = new FormData();
     formData.append('clientName', clientName);
