@@ -1,6 +1,12 @@
 // javascript 코드
 
 // 전화번호
+$("#clientPhone").keydown(function(key) {
+    if (key.keyCode == 13) {
+        $("#login-action").click();
+    }
+});
+
 $('#clientPhone').on('keyup', function (event) {
     var value = $(this).val();
     var addValue = [];
