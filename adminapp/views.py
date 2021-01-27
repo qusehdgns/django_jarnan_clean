@@ -293,3 +293,19 @@ def deletereview(request):
     Review.objects.get(pk=reviewId).delete()
 
     return HttpResponse()
+
+# 새로운 알림
+def checknew(request):
+
+    if Request.objects.filter(read_check=1).exists() == True:
+        return HttpResponse("true")
+    
+    return HttpResponse("false")
+
+# 새로운 댓글a
+def checkreply(request):
+
+    if Request.objects.filter(read_check=2).exists() == True:
+        return HttpResponse("true")
+    
+    return HttpResponse("false")

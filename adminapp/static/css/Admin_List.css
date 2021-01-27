@@ -95,3 +95,25 @@ html, body{
     padding: 25px;
     border-radius: 6px;
 }
+
+.new-alarm{
+    width: 30px;
+    display: none;
+    text-align: center;
+    justify-content: center;
+}
+
+.new-alarm img{
+    width: 10px;
+}
+
+.new-reply{
+    width: 30px;
+    display: none;
+    text-align: center;
+    justify-content: center;
+}
+
+.new-reply img{
+    width: 10px;
+}

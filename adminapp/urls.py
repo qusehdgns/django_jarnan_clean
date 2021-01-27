@@ -36,5 +36,11 @@ urlpatterns = [
     path('updateadminmemo', views.updateadminmemo),
 
     # 리뷰 삭제
-    path('deletereview', views.deletereview)
+    path('deletereview', views.deletereview),
+
+    # 새로운 알림
+    path('checknew', views.checknew),
+
+    # 새로운 댓글
+    path('checkreply', views.checkreply),
 ]
