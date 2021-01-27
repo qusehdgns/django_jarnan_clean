@@ -18,8 +18,8 @@
             <img class="main-first-img" src="{% static 'img/Main_First.png' %}">
             <button type="button" class="main-first-btn" onclick="move_to_request();">견적 신청</button>
             <div class="main-first-unit">
-                <img class="phone-call-img" src="{% static 'img/call_img.png' %}">
-                <b class="phone-call-num">000-0000-0000</b>
+                <img class="phone-call-img pt-1 pt-sm-0" src="{% static 'img/call_img.png' %}">
+                <b class="phone-call-num pt-2">070-7807-2511</b>
             </div>
         </div>
     </div>
@@ -108,6 +108,34 @@
         </div>
     </div>
     {% endif %}
+    <div class="row">
+        <div class="col-12 text-center main-slogan mt-1 pb-2">
+            <b>내 집처럼 정성을 다하겠습니다.</b>
+        </div>
+    </div>
+    <div class="mt-1 mb-1 pt-3 row last-company-info">
+        <div class="col-12 col-sm-3 col-md-5 main-last-img">
+            <img src="{% static 'img/Jar_Logo_2.png' %}">
+        </div>
+        <div class="mt-2 col-12 col-sm-4 col-md-3 main-last-info">
+            <span>
+                <b>회사명</b> : 잘나가는 청소
+                <br/>
+                <b>대표자</b> : 박재형
+                <br/>
+                <b>대표번호</b> : 010-7222-2511
+            </span>
+        </div>
+        <div class="mt-2 col-12 col-sm-4 col-md-3 main-last-info">
+            <span>
+                <b>주소</b>
+                <br/>
+                지번 : 서울특별시 영등포구 대림동 682-1
+                <br/>
+                도로명 : 서울특별시 영등포구 가마산로 360
+            </span>
+        </div>
+    </div>
 </div>
 {% endblock content %}
 
