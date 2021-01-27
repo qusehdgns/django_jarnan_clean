@@ -59,6 +59,16 @@ function search_request(sort) {
         return;
     }
 
+    if(startDate.length > 10){
+        alert("날짜 형식을 확인해주세요.");
+        $('#startDate').focus();
+        return;
+    } else if(endDate.length > 10){
+        alert("날짜 형식을 확인해주세요.");
+        $('#endDate').focus();
+        return;
+    }
+
     var newForm = $('<form></form>');
 
     newForm.attr("method", "POST");
