@@ -146,7 +146,7 @@ def clientRequest(request):
                                     request_memo=data['requestMemo'], read_password=data['readPassword'])
 
     # 문자 발송
-    # send_sms(data)
+    send_sms(data)
 
     Itembool = [False for i in range(len(clean))]
 

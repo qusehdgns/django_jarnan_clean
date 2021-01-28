@@ -16,13 +16,6 @@ body{
     text-align: center;
     padding: 0 10px;
 }
-@media (min-width: 1002px){
-    .shape-base{
-        margin: auto;
-        width: 992px;
-        padding: 0;
-    }
-}
 
 .base-logo-img{
     width: 80px;
@@ -32,4 +25,27 @@ body{
 
 .base-logout-unit{
     display: none;
+}
+
+.base-num-div{
+    display: none;
+    font-weight: 800;
+    color : rgb(118, 196, 208);
+}
+
+.blog-link-explain{
+    color : rgb(77, 77, 77);
+}
+
+@media (min-width: 768px) {
+    .base-num-div{
+        display: flex;
+    }
+}
+@media (min-width: 1002px){
+    .shape-base{
+        margin: auto;
+        width: 992px;
+        padding: 0;
+    }
 }

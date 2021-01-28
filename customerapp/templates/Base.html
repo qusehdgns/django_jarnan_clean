@@ -34,9 +34,25 @@
         <!-- Body 태그 내부 내용 -->
         <div class="shape-base">
             <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4">
-                <h5 class="ml-3 my-0 mr-md-auto font-weight-normal">
+                <div class="my-0 mr-md-auto font-weight-normal row">
                     <img src="{% static 'img/Jar_Logo_1.png' %}" class="base-logo-img" onclick="move_to_main();">
-                </h5>
+                    <div class="ml-2 pt-1 base-num-div">
+                        <div class="row">
+                            <div class="col-2 pr-0 pl-5">
+                                <div class="row text-center">
+                                    <span class="col-12">H.</span>
+                                    <span class="col-12">T.</span>
+                                </div>
+                            </div>
+                            <div class="col-10 pl-1 ">
+                                <div class="row text-left">
+                                    <span class="col-12">010-7222-2511</span>
+                                    <span class="col-12">070-7807-2511</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <nav class="mt-2 mt-md-0 mr-md-3">
                     <a class="p-2 text-dark base-logout-unit" href="/request_list">예약 기록</a>
                     <a class="btn btn-outline-primary" id="base-login-button" href="/login">예약 확인</a>

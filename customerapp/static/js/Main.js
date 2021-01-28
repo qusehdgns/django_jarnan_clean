@@ -35,3 +35,7 @@ function logout() {
         }
     });
 }
+
+function move_to_blog(){
+    $('#move-to-blog').get(0).click();
+}

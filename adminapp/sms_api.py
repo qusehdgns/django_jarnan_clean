@@ -15,11 +15,11 @@ def send_sms(data):
     requestUrl1 = "/sms/v2/services/"
     requestUrl2 = "/messages"
     # 콘솔 프로젝트 key
-    serviceId = ""
+    serviceId = "ncp:sms:kr:263531129738:jalclean"
     # 플랫폼 api key
-    access_key = ""
+    access_key = "pY51xDidzwhzpdL91p1P"
     # 플랫폼 api sercret key
-    secret_key = ""
+    secret_key = "7wA0G8yZQxqMnPa9TrEU7uL2ahha4IaD5s7Z9YlD"
 
     uri = requestUrl1 + serviceId + requestUrl2
     apiUrl = url + uri
@@ -36,11 +36,13 @@ def send_sms(data):
     message_value = "성명 : " + data['clientName'] + "\n전화번호 : " + data['clientPhone']
     message_value = message_value + "\n주소 : " + data['requestAddress'] + "\n희망 날짜 : " + data['requestDate']
 
-    messages = { "to" : "01088525151"}
+    phone_number = "01056671035"
+
+    messages = { "to" : phone_number}
     body = {
         "type" : "SMS",
         "contentType" : "COMM",
-        "from" : "01088525151",
+        "from" : phone_number,
         "subject" : "subject",
         "content" : message_value,
         "messages" : [messages]
