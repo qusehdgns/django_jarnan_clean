@@ -91,11 +91,8 @@ class RequestItem(models.Model):
     # 요청 항목(거주 청소)
     item10 = models.BooleanField(default=False)
 
-    # 요청 항목(계단 청소)
-    item11 = models.BooleanField(default=False)
-
     # 요청 항목(특수 청소)
-    item12 = models.BooleanField(default=False)
+    item11 = models.BooleanField(default=False)
 
     class Meta:
         # 데이터베이스 테이블 명 'request_item'

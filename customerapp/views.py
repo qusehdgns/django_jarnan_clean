@@ -21,7 +21,7 @@ from adminapp.models import User, Request, RequestItem, Construction, Comment, R
 from adminapp.sms_api import send_sms
 
 clean = ['입주 청소', '이사 청소', '인테리어 후 청소', '사무실 청소', '식당 청소',
-         '준공 청소', '학교 청소', '상가 청소', '외벽 청소', '거주 청소', '계단 청소', '특수 청소']
+         '준공 청소', '학교 청소', '상가 청소', '외벽 청소', '거주 청소', '특수 청소']
 construct = ['마루코팅', '타일코팅', '나노코팅', '줄눈시공', '주방상판', '대리석연마']
 
 # 접근 블로그 URL
@@ -160,8 +160,7 @@ def clientRequest(request):
     RequestItem.objects.create(r_num=client, item1=Itembool[0], item2=Itembool[1],
                                item3=Itembool[2], item4=Itembool[3], item5=Itembool[4],
                                item6=Itembool[5], item7=Itembool[6], item8=Itembool[7],
-                               item9=Itembool[8], item10=Itembool[9], item11=Itembool[10],
-                               item12=Itembool[11])
+                               item9=Itembool[8], item10=Itembool[9], item11=Itembool[10])
 
     Cunstructbool = [False for i in range(len(construct))]
 
