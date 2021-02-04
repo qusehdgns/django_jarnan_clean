@@ -1,0 +1,54 @@
+/* css 코드 */
+
+html, body{
+    width: 100%;
+    height: 100%;
+}
+
+.shape-base{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+@media (min-width: 992px){
+    .shape-base{
+        margin: auto;
+        width: 992px;
+    }
+}
+
+.Login-Base{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.Logo-img{
+    margin-top: auto;
+    width: 100%;
+}
+
+.Logo-img img{
+    margin: auto;
+    width: 90%;
+    max-width: 500px;
+}
+
+.Login-Form-Base{
+    margin-bottom: auto;
+    width: 100%;
+}
+
+.Login-Form-Base form{
+    margin: auto;
+    width: 90%;
+    max-width: 460px;
+}
+
+.Login-Form-Base form label{
+    white-space: nowrap;
+}
