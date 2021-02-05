@@ -343,3 +343,7 @@ def loginCheck(request):
 # 학교 청소
 def school_call(request):
     return render(request, "School_clean.html")
+
+# robots
+def robots(request):
+    return render(request, "robots.html")

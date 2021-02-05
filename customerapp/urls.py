@@ -58,4 +58,7 @@ urlpatterns = [
 
     # 학교 청소
     path('school_call', views.school_call, name="school_call"),
+
+    # robots.txt
+    path('robots.txt', views.robots),
 ]
