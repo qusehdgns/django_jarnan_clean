@@ -25,7 +25,7 @@ clean = ['입주 청소', '이사 청소', '인테리어 후 청소', '사무실
 construct = ['마루코팅', '타일코팅', '나노코팅', '줄눈시공', '주방상판', '대리석연마']
 
 # 접근 블로그 URL
-cleanUrls = []
+cleanUrls = ["", "", "", "", "", "", "/school_call", "", "", "", ""]
 
 
 # Main 페이지 호출
@@ -45,8 +45,15 @@ def main_call(request):
         dictval = { "writer" : temp, "review_value" : data['review_value'], "review_date" : data['review_date'], "scope" : data['scope'] }
         
         reviews.append(dictval)
+    
+    
+    clean_pack=[]
 
-    return render(request, 'Main.html', { "clean" : clean, "construct" : construct, "reviews" : reviews })
+    for i, data in enumerate(clean):
+        temp = { "clean" : clean[i], "url" : cleanUrls[i] }
+        clean_pack.append(temp)
+
+    return render(request, 'Main.html', { "clean" : clean_pack, "construct" : construct, "reviews" : reviews })
 
 # 로그인 페이지 호출
 
@@ -332,3 +339,7 @@ def loginCheck(request):
         return HttpResponse("true")
     
     return HttpResponse("false")
+
+# 학교 청소
+def school_call(request):
+    return render(request, "School_clean.html")

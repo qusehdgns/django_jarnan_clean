@@ -31,7 +31,11 @@
                     <div class="row">
                         {% for temp in clean %}
                         <div class="col-6 col-sm-4 col-md-3 px-1 text-center text-sm-left">
-                            {{temp}}
+                            {% if temp.url == "" %}
+                            <span class="px-1 py-1">{{temp.clean}}</span>
+                            {% else %}
+                            <span class="px-1 py-1 clickable-items" onclick="move_to_clean('{{temp.url}}');">{{temp.clean}}</span>
+                            {% endif %}
                         </div>
                         {% endfor %}
                     </div>

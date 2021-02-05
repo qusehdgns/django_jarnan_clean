@@ -55,4 +55,7 @@ urlpatterns = [
 
     # 로그인 확인
     path('loginCheck', views.loginCheck),
+
+    # 학교 청소
+    path('school_call', views.school_call, name="school_call"),
 ]
