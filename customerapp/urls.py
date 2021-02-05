@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 from customerapp import views
+from django.http import HttpResponse
 
 urlpatterns = [
     # 최초 페이지
@@ -60,5 +61,5 @@ urlpatterns = [
     path('school_call', views.school_call, name="school_call"),
 
     # robots.txt
-    path('robots.txt', views.robots),
+    path('robots.txt', lambda x: HttpResponse("User-Agent: *\nAllow: /", content_type="text/plain")),
 ]
